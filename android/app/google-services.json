@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "913225621404",
+    "project_id": "courti-b9ebd",
+    "storage_bucket": "courti-b9ebd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913225621404:android:f4751153e18abc07847259",
+        "android_client_info": {
+          "package_name": "com.example.kourti_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE_r8piileJq1DXGPV9TNKIKV8nKS8hlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913225621404:android:35ece36b4eb19921847259",
+        "android_client_info": {
+          "package_name": "com.example.kourti_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE_r8piileJq1DXGPV9TNKIKV8nKS8hlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
