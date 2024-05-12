@@ -1,16 +1,26 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/sign_up_bloc/sign_up_bloc.dart';
+import 'package:kourti_application_1/auth/welcome_page.dart';
 import 'package:pinput/pinput.dart';
+import 'package:user_repository/user_repository.dart';
 
 class Otp extends StatefulWidget {
-  const Otp({Key? key}) : super(key: key);
+  final MyUsers myuser;
+  const Otp(this.myuser, {super.key});
 
   @override
   State<Otp> createState() => _MyVerifyState();
 }
 
 class _MyVerifyState extends State<Otp> {
+  final _formKey = GlobalKey<FormState>();
+  final otpController = TextEditingController();
+  final focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -26,116 +36,152 @@ class _MyVerifyState extends State<Otp> {
       ),
     );
 
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+    defaultPinTheme.copyDecorationWith(
       border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
       borderRadius: BorderRadius.circular(8),
     );
 
-    final submittedPinTheme = defaultPinTheme.copyWith(
+    defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+    return BlocListener<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
+          setState(() {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Welcome_page(),
+                ));
+          });
+        } else if (state is SignUpLoading) {
+          setState(() {
+            // signUpRequired = true;
+          });
+        } else if (state is SignUpFailure) {
+          Navigator.pop(context);
+        }
+      },
+      child: Form(
+        key: _formKey,
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Colors.black,
+              ),
+            ),
+            elevation: 0,
           ),
-        ),
-        elevation: 0,
-      ),
-      body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/images_otp.png',
-                width: 250,
-                height: 250,
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Pinput(
-                length: 6,
-                // defaultPinTheme: defaultPinTheme,
-                // focusedPinTheme: focusedPinTheme,
-                // submittedPinTheme: submittedPinTheme,
-
-                showCursor: true,
-                onCompleted: (pin) => print(pin),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child:MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: (){
-                      Navigator.pushNamed(context, "/signup");
-
-                    },
-                    color: Color(0xff0095FF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
+          body: Container(
+            margin: EdgeInsets.only(left: 25, right: 25),
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/images_otp.png',
+                    width: 250,
+                    height: 250,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    "Phone Verification",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "We need to register your phone without getting started!",
+                    style: TextStyle(
+                      fontSize: 16,
                     ),
-                    child: Text(
-                      "telephone verification",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Pinput(
+                    length: 6,
+                    showCursor: true,
+                    controller: otpController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    focusNode: focusNode,
+                    androidSmsAutofillMethod:
+                        AndroidSmsAutofillMethod.smsUserConsentApi,
+                    listenForMultipleSmsOnAndroid: true,
+                    separatorBuilder: (index) => const SizedBox(width: 8),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "required input";
+                      }
+                      return null;
+                    },
+                    onCompleted: (pin) {
+                      debugPrint('onCompleted: $pin');
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 45,
+                    child: MaterialButton(
+                      minWidth: double.infinity,
+                      height: 60,
+                      onPressed: () {
+                        focusNode.unfocus();
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            context.read<SignUpBloc>().add(SignUpRequired(
+                                widget.myuser, otpController.text));
+                          });
+                        }
+                      },
+                      color: Color(0xff0095FF),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text(
+                        "telephone verification",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18),
                       ),
                     ),
                   ),
-              ),
-              Row(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        
-                           Navigator.pushNamed(context, "/verification");
-
-                        
-                      },
-                      child: Text(
-                        "Edit Phone Number ?",
-                        style: TextStyle(color: Colors.black),
-                      ))
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Edit Phone Number ?",
+                            style: TextStyle(color: Colors.black),
+                          ))
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),

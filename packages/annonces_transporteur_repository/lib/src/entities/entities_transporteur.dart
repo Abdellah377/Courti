@@ -1,0 +1,1 @@
+export 'annonce_transporteur_entity.dart';

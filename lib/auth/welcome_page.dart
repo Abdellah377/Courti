@@ -2,6 +2,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:kourti_application_1/auth/Signup_screen.dart';
+import 'package:kourti_application_1/auth/login_scren.dart';
 
 class Welcome_page extends StatelessWidget {
   const Welcome_page({super.key});
@@ -62,8 +64,12 @@ class Welcome_page extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                     Navigator.pushNamed(context, "/login");
-
+                      // BlocProvider<LogInBloc>(
+                      //   create: (context) => LogInBloc(
+                      //     context.read<AuthentificationBloc>().userRepository
+                      //     ),
+                      // );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => login_screen()));
                     },
                     // defining the shape
                     shape: RoundedRectangleBorder(
@@ -86,7 +92,8 @@ class Welcome_page extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: (){
-                      Navigator.pushNamed(context, "/signup");
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Signup_screen()));
 
                     },
                     color: Color(0xff0095FF),

@@ -1,10 +1,9 @@
-
 // ignore_for_file: unused_import, prefer_const_constructors
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
-import 'package:kourti_application_1/Blocs/bloc/authentification_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -14,7 +13,7 @@ import 'package:kourti_application_1/auth/login.dart';
 import 'package:kourti_application_1/auth/Singnup.dart';
 import 'package:kourti_application_1/auth/welcome_page.dart';
 import 'package:kourti_application_1/home/Annonce.dart';
-import 'package:kourti_application_1/home/Details.dart';
+import 'package:kourti_application_1/home/Details_client.dart';
 
 import 'home/app_view.dart';
 
@@ -23,7 +22,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp(FirebaseUserRepo()));
-
 }
 
 class MyApp extends StatelessWidget {
@@ -46,42 +44,11 @@ class MyApp extends StatelessWidget {
         "/login" :(context) =>  Login(),
         "/signup" :(context) =>  Signup(),
         "/verification" :(context) => verification(),
-        "/otp" :(context) =>  Otp(),
+        // "/otp" :(context) =>  Otp(),
         "/Annonce" : (context) => Annonce(),
-        "/Details" : (context) => Details(),
-
       },
     )
     );
 }
 
 }
-
-// void main(){
-//   runApp(MyApp());
-
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       initialRoute: "/" ,
-//       routes: {
-//         // "/" : (context) =>  Welcome_page(),
-//         "/login" :(context) =>  Login(),
-//         "/signup" :(context) =>  Signup(),
-//         "/verification" :(context) => verification(),
-//         "/otp" :(context) =>  Otp(),
-//         "/" : (context) => Annonce_Client(),
-//         "/Details" : (context) => Details(),
-
-//       },
-//     );
-// }
-
-// }

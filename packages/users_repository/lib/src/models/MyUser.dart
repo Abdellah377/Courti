@@ -1,10 +1,11 @@
+// ignore_for_file: non_constant_identifier_names
 
 import '../entities/entities.dart';
 
 class MyUsers{
   String user_id;
   String Nom;
-  String Prenom;
+  String Type;
   String E_mail;
   String Telephone;
   String Password;
@@ -12,7 +13,7 @@ class MyUsers{
   MyUsers({
     required this.user_id,
     required this.Nom,
-    required this.Prenom,
+    required this.Type,
     required this.E_mail,
     required this.Telephone,
     required this.Password,
@@ -21,7 +22,7 @@ class MyUsers{
   static final empty = MyUsers(
       user_id:'',
       Nom:'',
-      Prenom:'',
+      Type:'',
       E_mail:'',
       Telephone:'',
       Password:'',
@@ -31,7 +32,7 @@ class MyUsers{
     return UsersEntity(
       user_id: user_id,
       Nom: Nom,
-      Prenom: Prenom,
+      Type: Type,
       E_mail: E_mail,
       Telephone: Telephone,
       Password: Password,
@@ -42,10 +43,15 @@ class MyUsers{
     return MyUsers(
       user_id: entity.user_id, 
       Nom: entity.Nom, 
-      Prenom: entity.Prenom,
+      Type: entity.Type,
       E_mail: entity.E_mail, 
       Telephone: entity.Telephone,
       Password: entity.Password
       );
+  }
+
+      @override
+  String toString() {
+    return '''(user_id: $user_id, Nom: $Nom, Type: $Type, E_mail: $E_mail, Telephone: $Telephone)''';
   }
 }

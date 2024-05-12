@@ -1,8 +1,10 @@
 
+// ignore_for_file: non_constant_identifier_names
+
 class UsersEntity{
   String user_id;
   String Nom;
-  String Prenom;
+  String Type;
   String E_mail;
   String Telephone;
   String Password;
@@ -10,7 +12,7 @@ class UsersEntity{
   UsersEntity({
     required this.user_id,
     required this.Nom,
-    required this.Prenom,
+    required this.Type,
     required this.E_mail,
     required this.Telephone,
     required this.Password,
@@ -20,7 +22,7 @@ class UsersEntity{
     return{
       'user_id': user_id,
       'Nom': Nom,
-      'Prenom': Prenom,
+      'Type': Type,
       'E_mail': E_mail,
       'Telephone': Telephone,
       'Password': Password,
@@ -31,7 +33,7 @@ class UsersEntity{
     return UsersEntity(
       user_id: doc['user_id'],
       Nom: doc['Nom'],
-      Prenom: doc['Prenom'], 
+      Type: doc['Type'],
       E_mail: doc['E_mail'], 
       Telephone: doc['Telephone'], 
       Password: doc['Password']
