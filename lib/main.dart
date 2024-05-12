@@ -1,5 +1,5 @@
 
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, prefer_const_constructors
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +15,8 @@ import 'package:kourti_application_1/auth/Singnup.dart';
 import 'package:kourti_application_1/auth/welcome_page.dart';
 import 'package:kourti_application_1/home/Annonce.dart';
 import 'package:kourti_application_1/home/Details.dart';
+
+import 'home/app_view.dart';
 
 
 void main() async{
@@ -39,12 +41,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/" ,
       routes: {
-        // "/" : (context) =>  Welcome_page(),
+        "/" : (context) => Appview(),
+        "/Welcome_page" : (context) =>  Welcome_page(),
         "/login" :(context) =>  Login(),
         "/signup" :(context) =>  Signup(),
         "/verification" :(context) => verification(),
         "/otp" :(context) =>  Otp(),
-        "/" : (context) => Annonce(),
+        "/Annonce" : (context) => Annonce(),
         "/Details" : (context) => Details(),
 
       },
