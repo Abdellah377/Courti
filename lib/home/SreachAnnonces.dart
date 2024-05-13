@@ -20,9 +20,8 @@ import 'package:kourti_application_1/home/Details_client.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/my_user_bloc/my_user_bloc.dart';
 import 'package:kourti_application_1/home/Profile.dart';
 
-class Annonce extends StatelessWidget {
-  const Annonce({super.key});
-
+class SearchAnnonce extends StatelessWidget {
+  const SearchAnnonce({super.key});
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

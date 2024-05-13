@@ -27,6 +27,7 @@ class GetAnnonceClientBloc extends Bloc<GetAnnonceClientEvent, GetAnnonceClientS
       emit(GetAnnonceLoading());
       try {
         List<AnnoncesClient> annonces = await _annonceRepo.getAnnoncesClientByUser(event.myUsers.user_id);
+        
         emit(GetAnnonceSuccess(annonces));
       } catch (e) {
         emit(GetAnnonceFaliure());
