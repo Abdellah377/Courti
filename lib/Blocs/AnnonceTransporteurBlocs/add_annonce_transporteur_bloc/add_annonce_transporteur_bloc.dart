@@ -21,5 +21,14 @@ class AddAnnonceTransporteurBloc extends Bloc<AddAnnonceTransporteurEvent, AddAn
         emit(AddAnnonceFailure());
       }
     });
+    on<SetAnnonceTransporteur>((event, emit) async {
+      emit(AddAnnonceLoading());
+      try {
+        AnnoncesTransporteur annonce = await _annonceRepo.setAnnonceTransporteur(event.annonce);
+        emit(AddAnnonceSuccess(annonce));
+      } catch (e) {
+        emit(AddAnnonceFailure());
+      }
+    });
   }
 }

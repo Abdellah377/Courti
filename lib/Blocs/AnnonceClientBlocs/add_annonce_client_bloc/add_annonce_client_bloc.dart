@@ -21,5 +21,14 @@ class AddAnnonceClientBloc extends Bloc<AddAnnonceClientEvent, AddAnnonceClientS
         emit(AddAnnonceFailure());
       }
     });
+    on<SetAnnonceClient>((event, emit) async {
+      emit(AddAnnonceLoading());
+      try {
+        AnnoncesClient annonce = await _annonceRepo.setAnnonceClient(event.annonce);
+        emit(AddAnnonceSuccess(annonce));
+      } catch (e) {
+        emit(AddAnnonceFailure());
+      }
+    });
   }
 }

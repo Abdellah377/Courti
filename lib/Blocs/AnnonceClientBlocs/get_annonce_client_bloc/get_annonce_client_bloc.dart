@@ -33,5 +33,15 @@ class GetAnnonceClientBloc extends Bloc<GetAnnonceClientEvent, GetAnnonceClientS
         emit(GetAnnonceFaliure());
       }
     });
+
+    on<GetAnnonceClientByArgs>((event, emit) async{
+      emit(GetAnnonceLoading());
+      try {
+        List<AnnoncesClient> annonces = await _annonceRepo.getAnnoncesClientByArgs(event.arg, event.argValue);
+        emit(GetAnnonceSuccess(annonces));
+      } catch (e) {
+        emit(GetAnnonceFaliure());
+      }
+    });
   }
 }

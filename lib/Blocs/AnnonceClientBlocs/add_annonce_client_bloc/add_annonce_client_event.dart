@@ -12,3 +12,9 @@ class AddAnnonceClient extends AddAnnonceClientEvent {
 
   const AddAnnonceClient(this.annonce);
 }
+
+class SetAnnonceClient extends AddAnnonceClientEvent {
+  final AnnoncesClient annonce;
+
+  const SetAnnonceClient(this.annonce);
+}

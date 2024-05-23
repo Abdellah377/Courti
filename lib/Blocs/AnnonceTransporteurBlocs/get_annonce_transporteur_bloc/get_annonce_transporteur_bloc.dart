@@ -22,10 +22,21 @@ class GetAnnonceTransporteurBloc extends Bloc<GetAnnonceTransporteurEvent, GetAn
         emit(GetAnnonceFaliure());
       }
     });
+
     on<GetAnnonceTransporteurByUser>((event, emit) async{
       emit(GetAnnonceLoading());
       try {
         List<AnnoncesTransporteur> annonces = await _annonceRepo.getAnnoncesTransporteurByUser(event.myUsers.user_id);
+        emit(GetAnnonceSuccess(annonces));
+      } catch (e) {
+        emit(GetAnnonceFaliure());
+      }
+    });
+
+    on<GetAnnonceTransporteurByArgs>((event, emit) async {
+      emit(GetAnnonceLoading());
+      try {
+        List<AnnoncesTransporteur> annonces = await _annonceRepo.getAnnoncesTransporteurByArgs(event.args,event.argValue);
         emit(GetAnnonceSuccess(annonces));
       } catch (e) {
         emit(GetAnnonceFaliure());

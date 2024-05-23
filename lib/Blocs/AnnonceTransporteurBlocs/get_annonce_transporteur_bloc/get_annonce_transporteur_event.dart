@@ -18,3 +18,12 @@ class GetAnnonceTransporteurByUser extends GetAnnonceTransporteurEvent{
   List<Object> get props => [myUsers];
 }
 
+class GetAnnonceTransporteurByArgs extends GetAnnonceTransporteurEvent{
+  final String args;
+  final String argValue;
+
+  const GetAnnonceTransporteurByArgs(this.args,this.argValue);
+
+  @override
+  List<Object> get props => [args,argValue];
+}

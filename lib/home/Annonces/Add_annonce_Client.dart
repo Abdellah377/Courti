@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unused_local_variable
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unused_local_variable, use_build_context_synchronously
 
 import 'package:annonce_client_repository/annonce_client_repository.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';

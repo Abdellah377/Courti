@@ -46,4 +46,31 @@ class FirebaseAnnonceClientRepo implements AnnonceClientRepo {
       rethrow;
     }
   }
+  
+  @override
+  Future<List<AnnoncesClient>> getAnnoncesClientByArgs(String arg, String argValue) async{
+    try {
+      return await annonceCollection
+      .get()
+      .then((value) => value.docs
+          .where((doc) => doc.data()[arg] == argValue)
+          .map((e) => AnnoncesClient.fromEntity(AnnoncesClientEntity.fromDocument(e.data())))
+          .toList());
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<AnnoncesClient> setAnnonceClient(AnnoncesClient annonce) async {
+    try {
+      await annonceCollection
+          .doc(annonce.annonce_id)
+          .set(annonce.toEntity().toDocuments());
+      return annonce;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

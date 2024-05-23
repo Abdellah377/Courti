@@ -12,3 +12,9 @@ class AddAnnonceTransporteur extends AddAnnonceTransporteurEvent {
 
   const AddAnnonceTransporteur(this.annonce);
 }
+
+class SetAnnonceTransporteur extends AddAnnonceTransporteurEvent {
+  final AnnoncesTransporteur annonce;
+
+  const SetAnnonceTransporteur(this.annonce);
+}

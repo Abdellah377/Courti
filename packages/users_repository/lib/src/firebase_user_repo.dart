@@ -2,9 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'entities/entities.dart';
-import 'models/MyUser.dart';
-import 'user_repo.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FirebaseUserRepo implements UserRepository {
@@ -45,7 +43,7 @@ class FirebaseUserRepo implements UserRepository {
     try {
       await _firebaseAuth.signInWithPhoneNumber("+212670729866");
     } catch (e) {
-      print("WAAAAAAAAAAAAAAAAAAAAAAAAA: "+e.toString());
+      print("WAAAAAAAAAAAAAAAAAAAAAAAAA: " + e.toString());
       rethrow;
     }
   }
@@ -66,11 +64,6 @@ class FirebaseUserRepo implements UserRepository {
       },
       verificationFailed: (e) {
         print("       [       ERROR:        ]       " + e.toString());
-        // if (e.code == 'invalide-phone-number') {
-        //   Get.snackbar('Error','brrrr');
-        // } else {
-        //   Get.snackbar("idk", "hmmmmmmm");
-        // }
       },
     );
   }
@@ -82,20 +75,6 @@ class FirebaseUserRepo implements UserRepository {
             verificationId: verificationId, smsCode: otp));
     return credentials.user != null ? true : false;
   }
-
-  // @override
-  // Future<MyUsers> signUp(MyUsers myuser) async {
-  //   try {
-  //     UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
-  //         email: myuser.E_mail, password: myuser.Password);
-  //     myuser.user_id = user.user!.uid;
-
-  //     return myuser;
-  //   } catch (e) {
-  //     log(e.toString() as num);
-  //     rethrow;
-  //   }
-  // }
 
   @override
   Future<MyUsers> linkEmailToPhoneAuth(MyUsers myuser) async {
@@ -131,10 +110,36 @@ class FirebaseUserRepo implements UserRepository {
   }
 
   @override
-  Future<MyUsers> GetMyUser(String myUserId) async {
+  Future<MyUsers> getMyUser(String myUserId) async {
     try {
       return userCollection.doc(myUserId).get().then((value) =>
           MyUsers.fromEntity(UsersEntity.fromDocument(value.data()!)));
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<MyUsers>> getUsers() async {
+    try {
+      return await userCollection.get().then((value) => value.docs
+          .map((e) => MyUsers.fromEntity(UsersEntity.fromDocument(e.data())))
+          .toList());
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<MyUsers>> getUsersByArg(String args, String argvalue) async {
+    try {
+      return await userCollection.get()
+    .then((value) => value.docs
+        .where((doc) => doc.data()[args] == argvalue)
+        .map((e) => MyUsers.fromEntity(UsersEntity.fromDocument(e.data())))
+        .toList());
     } catch (e) {
       print(e.toString());
       rethrow;

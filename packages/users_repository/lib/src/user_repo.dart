@@ -17,5 +17,9 @@ abstract class UserRepository {
 
   Future <void> logOut();
 
-  Future<MyUsers> GetMyUser(String myUserId);
+  Future<MyUsers> getMyUser(String myUserId);
+
+  Future<List<MyUsers>> getUsers();
+
+  Future<List<MyUsers>>getUsersByArg(String args, String argvalue);
 }

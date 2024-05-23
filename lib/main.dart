@@ -12,8 +12,8 @@ import 'package:kourti_application_1/auth/verification.dart';
 import 'package:kourti_application_1/auth/login.dart';
 import 'package:kourti_application_1/auth/Singnup.dart';
 import 'package:kourti_application_1/auth/welcome_page.dart';
-import 'package:kourti_application_1/home/Annonce.dart';
-import 'package:kourti_application_1/home/Details_client.dart';
+import 'package:kourti_application_1/home/Annonces/Annonce.dart';
+import 'package:kourti_application_1/home/Annonces/Details_client.dart';
 
 import 'home/app_view.dart';
 

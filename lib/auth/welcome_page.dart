@@ -64,11 +64,6 @@ class Welcome_page extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      // BlocProvider<LogInBloc>(
-                      //   create: (context) => LogInBloc(
-                      //     context.read<AuthentificationBloc>().userRepository
-                      //     ),
-                      // );
                       Navigator.push(context, MaterialPageRoute(builder: (context) => login_screen()));
                     },
                     // defining the shape

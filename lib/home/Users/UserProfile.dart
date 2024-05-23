@@ -3,16 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:kourti_application_1/home/Details_Transporteur.dart';
-import 'package:kourti_application_1/home/Details_client.dart';
+import 'package:kourti_application_1/home/Annonces/Details_Transporteur.dart';
+import 'package:kourti_application_1/home/Annonces/Details_client.dart';
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart' as GetAnnonceTransporteur;
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client_bloc/get_annonce_client_bloc.dart'as GetAnnonceClient;
 import 'package:user_repository/user_repository.dart';
 
-class Profile extends StatelessWidget {
+class UserProfile extends StatelessWidget {
   final MyUsers myUsers;
-  const Profile(this.myUsers,{super.key});
-
+  const UserProfile(this.myUsers,{super.key});
   @override
   Widget build(BuildContext context) {
         return Scaffold(

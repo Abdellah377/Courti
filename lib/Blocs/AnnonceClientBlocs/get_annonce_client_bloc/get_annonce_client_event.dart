@@ -16,7 +16,17 @@ const GetAnnonceClientByUser(this.myUsers);
 
   @override
   List<Object> get props => [myUsers];
-
+  
 }
 
+class GetAnnonceClientByArgs extends GetAnnonceClientEvent{
+  final String arg;
+  final String argValue;
+
+const GetAnnonceClientByArgs(this.arg, this.argValue);
+
+  @override
+  List<Object> get props => [arg, argValue];
+
+}
 
