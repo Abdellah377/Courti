@@ -12,7 +12,7 @@ import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/add_annonce_transporteur_bloc/add_annonce_transporteur_bloc.dart';
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart'
     as GetAnnonceTransporteur;
-import 'package:kourti_application_1/Blocs/UserBlocs/bloc/get_user_by_id_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/get_user_by_id_bloc/get_user_by_id_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
 import 'package:kourti_application_1/home/Annonces/Add_annonce_Client.dart';
 import 'package:kourti_application_1/home/Annonces/Add_annonce_transporteur.dart';
