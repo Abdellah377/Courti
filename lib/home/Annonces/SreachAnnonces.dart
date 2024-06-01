@@ -1,185 +1,37 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_prefixes, file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart'
-    as GetAnnonceTransporteur;
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client_bloc/get_annonce_client_bloc.dart'
     as GetAnnonceClient;
+import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart'
+    as GetAnnonceTransporteur;
 import 'package:kourti_application_1/Blocs/UserBlocs/bloc/get_user_by_id_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/my_user_bloc/my_user_bloc.dart';
-import 'package:kourti_application_1/home/Profile/EditProfile.dart';
-import 'package:kourti_application_1/home/Profile/My_Details_Transporteur.dart';
-import 'package:kourti_application_1/home/Profile/My_Details_client.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:kourti_application_1/home/Annonces/Details_Transporteur.dart';
+import 'package:kourti_application_1/home/Annonces/Details_client.dart';
+class SearchAnnonce extends StatelessWidget {
+  final String type;
+  const SearchAnnonce(this.type,{super.key});
 
-class MyProfile extends StatefulWidget {
-  final MyUsers myUsers;
-  const MyProfile(this.myUsers, {super.key});
-
-  @override
-  State<MyProfile> createState() => _MyProfileState();
-}
-
-class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         centerTitle: true,
-        title: const Text("Profile"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => 
-                      EditProfile(widget.myUsers),
-                    )
-                );
-              },
-              icon: Icon(Icons.edit))
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await Future.delayed(Duration(seconds: 2));
-          setState(() {});
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Information personnelle",
-                        style: TextStyle(
-                            fontSize: 25,
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: 160,
-                        height: 160,
-                        decoration: BoxDecoration(
-                            color: Colors.amber, shape: BoxShape.circle),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
+        title: const Text("Annonces"),
+        ),
+      body: Builder(
+        builder: (context) {
+          if (type == "Client") {
+            return BlocBuilder<GetAnnonceClient.GetAnnonceClientBloc,
+                  GetAnnonceClient.GetAnnonceClientState>(
+                builder: (context, state) {
+                  if (state is GetAnnonceClient.GetAnnonceSuccess) {
+                    return SingleChildScrollView(
+                      child: Column(
                         children: [
-                          SizedBox(width: 20, height: 30),
-                          Expanded(
-                            flex: 10,
-                            child: Text(
-                              "Nom: ",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 15,
-                            child: Text(
-                              widget.myUsers.Nom,
-                              style: TextStyle(fontSize: 17),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(width: 20, height: 30),
-                          Expanded(
-                            flex: 10,
-                            child: Text(
-                              "Type: ",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 15,
-                              child: Text(
-                                widget.myUsers.Type,
-                                style: TextStyle(fontSize: 17),
-                              )),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(width: 20, height: 30),
-                          Expanded(
-                            flex: 10,
-                            child: Text(
-                              "E-mail: ",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 15,
-                              child: Text(
-                                widget.myUsers.E_mail,
-                                style: TextStyle(fontSize: 17),
-                              ))
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(width: 20, height: 30),
-                          Expanded(
-                            flex: 10,
-                            child: Text(
-                              "Numéro de telephone: ",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 15,
-                            child: Text(
-                              widget.myUsers.Telephone,
-                              style: TextStyle(fontSize: 17),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Builder(builder: (context) {
-                if (widget.myUsers.Type == "Client") {
-                  return BlocBuilder<GetAnnonceClient.GetAnnonceClientBloc,
-                      GetAnnonceClient.GetAnnonceClientState>(
-                    builder: (context, state) {
-                      if (state is GetAnnonceClient.GetAnnonceSuccess) {
-                        return Column(
-                          children: [
-                            ListView.builder(
+                          ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: state.annonces.length,
@@ -190,7 +42,8 @@ class _MyProfileState extends State<MyProfile> {
                                   return BlocBuilder<MyUserBloc, MyUserState>(
                                     builder: (context, state) {
                                       return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(height: 20),
                                           Row(
@@ -249,7 +102,7 @@ class _MyProfileState extends State<MyProfile> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            My_Details_Client(
+                                                            Details_Client(
                                                                 annonce,
                                                                 state
                                                                     .myUser!)));
@@ -454,34 +307,33 @@ class _MyProfileState extends State<MyProfile> {
                                     },
                                   );
                                 }),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 5,
-                            )
-                          ],
-                        );
-                      } else if (state is GetAnnonceClient.GetAnnonceLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return const Center(
-                          child: Text(
-                            "Error!!!",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                } else {
-                  return BlocBuilder<
-                      GetAnnonceTransporteur.GetAnnonceTransporteurBloc,
-                      GetAnnonceTransporteur.GetAnnonceTransporteurState>(
-                    builder: (context, state) {
-                      if (state is GetAnnonceTransporteur.GetAnnonceSuccess) {
-                        return Column(
-                          children: [
-                            ListView.builder(
+                            const SizedBox(height: 30,)
+                        ],
+                      ),
+                    );
+                  } else if (state is GetAnnonceClient.GetAnnonceLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text(
+                        "Error!!!",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    );
+                  }
+                
+            });
+          } else {
+            return BlocBuilder<GetAnnonceTransporteur.GetAnnonceTransporteurBloc,
+                  GetAnnonceTransporteur.GetAnnonceTransporteurState>(
+                builder: (context, state) {
+                  if (state is GetAnnonceTransporteur.GetAnnonceSuccess) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: state.annonces.length,
@@ -548,7 +400,7 @@ class _MyProfileState extends State<MyProfile> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        My_Details_Transporteur(annonce, state.myUser!)));
+                                                        Details_Transporteur(annonce, state.myUser!)));
                                           },
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -733,32 +585,27 @@ class _MyProfileState extends State<MyProfile> {
                               );
                             },
                           ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 5,
-                            )
-                          ],
-                        );
-                      } else if (state
-                          is GetAnnonceTransporteur.GetAnnonceLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return const Center(
-                          child: Text(
-                            "Error!!!",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                }
-              }),
-            ],
-          ),
+                          const SizedBox(height: 30,)
+                        ],
+                      ),
+                    );
+                  } else if (state is GetAnnonceTransporteur.GetAnnonceLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text(
+                        "Error!!!",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    );
+                  }
+              
+            });
+          }
+        }
         ),
-      ),
     );
   }
 }

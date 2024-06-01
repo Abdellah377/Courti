@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/add_annonce_client_bloc/add_annonce_client_bloc.dart';
 import 'package:kourti_application_1/home/Profile/EditAnnonces_Client.dart';
+import 'package:user_repository/user_repository.dart';
 
 class My_Details_Client extends StatelessWidget {
   final AnnoncesClient annoncesclient;
-  const My_Details_Client(this.annoncesclient, {super.key});
+  final MyUsers myUser;
+  const My_Details_Client(this.annoncesclient, this.myUser, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,6 @@ class My_Details_Client extends StatelessWidget {
           ],
       ),
       body: SingleChildScrollView(
-
         child: Column(
           children: [
             Padding(
@@ -77,7 +78,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           flex: 15,
                           child: Text(
-                            annoncesclient.myUser.Nom,
+                            myUser.Nom,
                             style: TextStyle(fontSize: 17),
                           ),
                         ),
@@ -96,7 +97,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           flex: 15,
                           child: Text(
-                            annoncesclient.myUser.Type,
+                            myUser.Type,
                             style: TextStyle(fontSize: 17),
                           )),
                       ],
@@ -113,7 +114,7 @@ class My_Details_Client extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 15,
-                          child: Text(annoncesclient.myUser.E_mail,
+                          child: Text(myUser.E_mail,
                             style: TextStyle(fontSize: 17),
                           )
                         )
@@ -131,7 +132,7 @@ class My_Details_Client extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 15,
-                          child: Text(annoncesclient.myUser.Telephone,
+                          child: Text(myUser.Telephone,
                           style: TextStyle(fontSize: 17),
                           ),
                         ),

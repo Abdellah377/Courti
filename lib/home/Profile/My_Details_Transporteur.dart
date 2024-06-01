@@ -2,11 +2,17 @@
 
 import 'package:annonce_transporteur_repository/annonce_transporteur_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/add_annonce_transporteur_bloc/add_annonce_transporteur_bloc.dart';
+import 'package:kourti_application_1/home/Profile/EditAnnonces_Transporteur.dart';
+import 'package:user_repository/user_repository.dart';
 
 class My_Details_Transporteur extends StatelessWidget {
   final AnnoncesTransporteur annoncesTransporteur;
-  const My_Details_Transporteur(this.annoncesTransporteur, {super.key});
+  final MyUsers myUser;
+
+  const My_Details_Transporteur(this.annoncesTransporteur, this.myUser, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +22,19 @@ class My_Details_Transporteur extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) =>
+                BlocProvider<AddAnnonceTransporteurBloc>(
+                  create: (context) => AddAnnonceTransporteurBloc(
+                    annonceRepo: FirebaseAnnonceTransporteurRepo()),
+                  child: EditAnnonces_Transporteur(annoncesTransporteur)
+                )
+              ));
             },
             icon: Icon(Icons.edit))
           ],
       ),
       body: SingleChildScrollView(
-
         child: Column(
           children: [
             Padding(
@@ -67,7 +79,7 @@ class My_Details_Transporteur extends StatelessWidget {
                         Expanded(
                           flex: 15,
                           child: Text(
-                            annoncesTransporteur.myUser.Nom,
+                            myUser.Nom,
                             style: TextStyle(fontSize: 17),
                           ),
                         ),
@@ -86,7 +98,7 @@ class My_Details_Transporteur extends StatelessWidget {
                         Expanded(
                           flex: 15,
                           child: Text(
-                            annoncesTransporteur.myUser.Type,
+                            myUser.Type,
                             style: TextStyle(fontSize: 17),
                           )),
                       ],
@@ -103,7 +115,7 @@ class My_Details_Transporteur extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 15,
-                          child: Text(annoncesTransporteur.myUser.E_mail,
+                          child: Text(myUser.E_mail,
                             style: TextStyle(fontSize: 17),
                           )
                         )
@@ -121,7 +133,7 @@ class My_Details_Transporteur extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 15,
-                          child: Text(annoncesTransporteur.myUser.Telephone,
+                          child: Text(myUser.Telephone,
                           style: TextStyle(fontSize: 17),
                           ),
                         ),
@@ -220,7 +232,7 @@ class My_Details_Transporteur extends StatelessWidget {
                             ),
                             Expanded(
                               // flex: 15,
-                              child: Text(annoncesTransporteur.myUser.Telephone,
+                              child: Text(annoncesTransporteur.Ville_darrive,
                               style: TextStyle(fontSize: 17),
                               ),
                             ),

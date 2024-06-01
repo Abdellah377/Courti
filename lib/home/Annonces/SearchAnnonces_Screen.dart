@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client_bloc/get_annonce_client_bloc.dart';
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart';
-import 'package:kourti_application_1/home/SreachAnnonces.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/bloc/get_user_by_id_bloc.dart';
+import 'package:kourti_application_1/home/Annonces/SreachAnnonces.dart';
 
 class SearchAnnonce_Screen extends StatelessWidget {
   final String arg;
@@ -18,6 +20,11 @@ class SearchAnnonce_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<GetUserByIdBloc>(
+          create: (context) => GetUserByIdBloc(
+            myUserRepository: context.read<AuthentificationBloc>().userRepository
+            )
+          ),
         BlocProvider<GetAnnonceClientBloc>(
           create: (context) => GetAnnonceClientBloc(annonceRepo: FirebaseAnnonceClientRepo())
           ..add(GetAnnonceClientByArgs(arg, argValue))

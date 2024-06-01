@@ -3,10 +3,12 @@
 import 'package:annonce_transporteur_repository/annonce_transporteur_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:user_repository/user_repository.dart';
 
 class Details_Transporteur extends StatelessWidget {
   final AnnoncesTransporteur annoncesTransporteur;
-  const Details_Transporteur(this.annoncesTransporteur, {super.key});
+  final MyUsers myUser;
+  const Details_Transporteur(this.annoncesTransporteur, this.myUser, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class Details_Transporteur extends StatelessWidget {
                         Expanded(
                           flex: 15,
                           child: Text(
-                            annoncesTransporteur.myUser.Nom,
+                            myUser.Nom,
                             style: TextStyle(fontSize: 17),
                           ),
                         ),
@@ -78,7 +80,7 @@ class Details_Transporteur extends StatelessWidget {
                         Expanded(
                           flex: 15,
                           child: Text(
-                            annoncesTransporteur.myUser.Type,
+                            myUser.Type,
                             style: TextStyle(fontSize: 17),
                           )),
                       ],
@@ -95,7 +97,7 @@ class Details_Transporteur extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 15,
-                          child: Text(annoncesTransporteur.myUser.E_mail,
+                          child: Text(myUser.E_mail,
                             style: TextStyle(fontSize: 17),
                           )
                         )
@@ -113,7 +115,7 @@ class Details_Transporteur extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 15,
-                          child: Text(annoncesTransporteur.myUser.Telephone,
+                          child: Text(myUser.Telephone,
                           style: TextStyle(fontSize: 17),
                           ),
                         ),
@@ -212,7 +214,7 @@ class Details_Transporteur extends StatelessWidget {
                             ),
                             Expanded(
                               // flex: 15,
-                              child: Text(annoncesTransporteur.myUser.Telephone,
+                              child: Text(annoncesTransporteur.Ville_darrive,
                               style: TextStyle(fontSize: 17),
                               ),
                             ),

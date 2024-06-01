@@ -25,7 +25,7 @@ class FirebaseAnnonceTransporteurRepo implements AnnonceTransporteurRepo{
       return await annonceCollection
     .get()
     .then((value) => value.docs
-        .where((doc) => doc.data()['myUser']['user_id'] == userid)
+        .where((doc) => doc.data()['userId'] == userid)
         .map((e) => AnnoncesTransporteur.fromEntity(AnnoncesTransporteurEntity.fromDocument(e.data())))
         .toList());
     } catch (e) {

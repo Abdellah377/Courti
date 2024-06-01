@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,7 +43,7 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> signInPhone(String phone, String password) async {
     try {
-      await _firebaseAuth.signInWithPhoneNumber("+212670729866");
+      await _firebaseAuth.signInWithPhoneNumber(phone);
     } catch (e) {
       print("WAAAAAAAAAAAAAAAAAAAAAAAAA: " + e.toString());
       rethrow;
@@ -63,7 +65,7 @@ class FirebaseUserRepo implements UserRepository {
         this.verificationId = verificationId;
       },
       verificationFailed: (e) {
-        print("       [       ERROR:        ]       " + e.toString());
+        print(e.toString());
       },
     );
   }
@@ -113,9 +115,9 @@ class FirebaseUserRepo implements UserRepository {
   Future<MyUsers> getMyUser(String myUserId) async {
     try {
       return userCollection.doc(myUserId).get().then((value) =>
-          MyUsers.fromEntity(UsersEntity.fromDocument(value.data()!)));
+        MyUsers.fromEntity(UsersEntity.fromDocument(value.data()!)));
     } catch (e) {
-      print(e.toString());
+      print("[      ERROR         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!]"+e.toString());
       rethrow;
     }
   }
@@ -140,6 +142,54 @@ class FirebaseUserRepo implements UserRepository {
         .where((doc) => doc.data()[args] == argvalue)
         .map((e) => MyUsers.fromEntity(UsersEntity.fromDocument(e.data())))
         .toList());
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<void> setEmail(MyUsers myUser, String email) async{
+    try {
+      User user = _firebaseAuth.currentUser!;
+      await user.reauthenticateWithCredential(
+        EmailAuthProvider.credential(
+          email: email,
+          password: myUser.Password
+        )
+      );
+      myUser.E_mail = email;
+      await setUserData(myUser);
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<void> setPhoneNumber(String phoneNumber) async{
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        // timeout: const Duration(minutes: 2),
+
+        verificationCompleted: (credential) async {
+          await FirebaseAuth.instance.currentUser!.updatePhoneNumber(credential);
+        },
+
+        codeSent: (verificationId, [forceResendingToken]) async {
+          this.verificationId = verificationId;
+        },
+
+        codeAutoRetrievalTimeout: (String verificationId) {
+          this.verificationId = verificationId;
+        },
+
+        verificationFailed: (e){
+          print(e.toString());
+        }, 
+        // codeAutoRetrievalTimeout: null
+        );
     } catch (e) {
       print(e.toString());
       rethrow;

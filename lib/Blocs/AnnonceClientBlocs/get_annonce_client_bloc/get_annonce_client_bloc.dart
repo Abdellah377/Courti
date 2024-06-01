@@ -30,6 +30,7 @@ class GetAnnonceClientBloc extends Bloc<GetAnnonceClientEvent, GetAnnonceClientS
         
         emit(GetAnnonceSuccess(annonces));
       } catch (e) {
+        print("[      ERROR       ]"+e.toString());
         emit(GetAnnonceFaliure());
       }
     });

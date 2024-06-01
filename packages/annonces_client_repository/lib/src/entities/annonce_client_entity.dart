@@ -2,13 +2,12 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:user_repository/user_repository.dart';
 
 class AnnoncesClientEntity{
   String annonce_id;
 
   String Titre;
-  MyUsers myUser;
+  String userId;
   String Details;
   String Ville_depart;
   String Ville_darrive;
@@ -21,7 +20,7 @@ class AnnoncesClientEntity{
 
   AnnoncesClientEntity({
     required this.annonce_id,
-    required this.myUser,
+    required this.userId,
     required this.Titre,
     required this.Details,
     required this.Ville_depart,
@@ -37,7 +36,7 @@ class AnnoncesClientEntity{
      Map<String,Object?> toDocuments(){
     return{
       'annonce_id' : annonce_id,
-      'myUser': myUser.toEntity().toDocuments(),
+      'userId': userId,
       'Titre': Titre,
       'Details': Details,
       'Ville_depart': Ville_depart,
@@ -54,7 +53,7 @@ class AnnoncesClientEntity{
   static AnnoncesClientEntity fromDocument(Map<String,dynamic> doc){
     return AnnoncesClientEntity(
       annonce_id : doc['annonce_id'],
-      myUser: MyUsers.fromEntity(UsersEntity.fromDocument(doc['myUser'])),
+      userId: doc['userId'],
       Titre: doc['Titre'],
       Details: doc['Details'],
       Ville_depart: doc['Ville_depart'],
@@ -73,7 +72,7 @@ class AnnoncesClientEntity{
   String toString() {
     return '''AnnonceEntity: {
       'annonce_id' : $annonce_id
-      'myUser': $myUser
+      'userId': $userId
       'Titre': $Titre
       'Details': $Details
       'Ville_depart': $Ville_depart

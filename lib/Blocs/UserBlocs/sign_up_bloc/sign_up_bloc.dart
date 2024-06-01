@@ -15,8 +15,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         bool isVerified = await _userRepository.verifyOTP(event.otp);
         if (isVerified == true) {
 
-          // MyUsers myUser = await _userRepository.signUp(event.user);
-          // await _userRepository.setUserData(myUser);
           MyUsers myUser = await _userRepository.linkEmailToPhoneAuth(event.user);
           await _userRepository.setUserData(myUser);
           emit(SignUpSuccess());

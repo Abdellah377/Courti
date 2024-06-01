@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unused_local_variable, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unused_local_variable, use_build_context_synchronously, camel_case_types, file_names
 
 import 'package:annonce_client_repository/annonce_client_repository.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
@@ -7,11 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/add_annonce_client_bloc/add_annonce_client_bloc.dart';
-import 'package:user_repository/user_repository.dart';
 
 class AnnonceAdd_Client extends StatefulWidget {
-  final MyUsers myUser;
-  const AnnonceAdd_Client(this.myUser, {super.key});
+  final String userId;
+  const AnnonceAdd_Client(this.userId, {super.key});
 
   @override
   State<AnnonceAdd_Client> createState() => _AnnonceAdd_ClientState();
@@ -39,7 +38,7 @@ class _AnnonceAdd_ClientState extends State<AnnonceAdd_Client> {
   @override
   void initState() {
     annonce = AnnoncesClient.empty;
-    annonce.myUser = widget.myUser;
+    annonce.userId = widget.userId;
     super.initState();
   }
 
@@ -377,6 +376,7 @@ class _AnnonceAdd_ClientState extends State<AnnonceAdd_Client> {
                                 context.read<AddAnnonceClientBloc>().add(AddAnnonceClient(annonce));
                               });
                             }
+                            
                           },
                           color: Color(0xff0095FF),
                           elevation: 0,

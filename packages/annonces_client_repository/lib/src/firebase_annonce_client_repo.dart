@@ -25,7 +25,7 @@ class FirebaseAnnonceClientRepo implements AnnonceClientRepo {
       return await annonceCollection
     .get()
     .then((value) => value.docs
-        .where((doc) => doc.data()['myUser']['user_id'] == userId)
+        .where((doc) => doc.data()['userId'] == userId)
         .map((e) => AnnoncesClient.fromEntity(AnnoncesClientEntity.fromDocument(e.data())))
         .toList());
     } catch (e) {

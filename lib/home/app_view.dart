@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client_bloc/get_annonce_client_bloc.dart';
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/bloc/get_user_by_id_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/get_users_bloc/get_users_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/my_user_bloc/my_user_bloc.dart';
@@ -33,6 +34,11 @@ class Appview extends StatelessWidget {
                   create: (context) => MyUserBloc(
                     myUserRepository: context.read<AuthentificationBloc>().userRepository
                   )..add(GetMyUser(myUserid: context.read<AuthentificationBloc>().state.user!.user_id)),
+                ),
+                BlocProvider<GetUserByIdBloc>(
+                  create: (context) => GetUserByIdBloc(
+                    myUserRepository: context.read<AuthentificationBloc>().userRepository
+                  )
                 ),
                 BlocProvider<GetAnnonceClientBloc>(
                   create: (context) => GetAnnonceClientBloc(

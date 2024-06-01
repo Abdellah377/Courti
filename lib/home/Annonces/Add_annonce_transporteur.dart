@@ -7,11 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/add_annonce_transporteur_bloc/add_annonce_transporteur_bloc.dart';
-import 'package:user_repository/user_repository.dart';
 
 class AnnonceAdd_Transporteur extends StatefulWidget {
-  final MyUsers myUser;
-  const AnnonceAdd_Transporteur(this.myUser, {super.key});
+  final String userId;
+  const AnnonceAdd_Transporteur(this.userId, {super.key});
 
   @override
   State<AnnonceAdd_Transporteur> createState() =>
@@ -40,7 +39,7 @@ class _AnnonceAdd_TransporteurState extends State<AnnonceAdd_Transporteur> {
   @override
   void initState() {
     annonce = AnnoncesTransporteur.empty;
-    annonce.myUser = widget.myUser;
+    annonce.userId = widget.userId;
     super.initState();
   }
 

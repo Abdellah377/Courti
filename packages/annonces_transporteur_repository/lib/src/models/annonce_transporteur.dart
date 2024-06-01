@@ -1,13 +1,12 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:user_repository/user_repository.dart';
 import '../entities/annonce_transporteur_entity.dart';
 
 class AnnoncesTransporteur{
 
   String annonce_id;
-  MyUsers myUser;
+  String userId;
   String Titre;
   String Details;
   String Ville_depart;
@@ -22,7 +21,7 @@ class AnnoncesTransporteur{
 
   AnnoncesTransporteur({
     required this.annonce_id,
-    required this.myUser,
+    required this.userId,
     required this.Titre,
     required this.Details,
     required this.Ville_depart,
@@ -37,7 +36,7 @@ class AnnoncesTransporteur{
 
     static final empty = AnnoncesTransporteur(
       annonce_id: '', 
-      myUser: MyUsers.empty, 
+      userId: '', 
       Titre: '', 
       Details: '', 
       Ville_depart: '', 
@@ -53,7 +52,7 @@ class AnnoncesTransporteur{
     AnnoncesTransporteurEntity toEntity(){
     return AnnoncesTransporteurEntity(
       annonce_id : annonce_id,
-      myUser: myUser,
+      userId: userId,
       Titre: Titre,
       Details: Details,
       Ville_depart: Ville_depart,
@@ -70,7 +69,7 @@ class AnnoncesTransporteur{
   static AnnoncesTransporteur fromEntity(AnnoncesTransporteurEntity entity) {
     return AnnoncesTransporteur(
       annonce_id: entity.annonce_id,
-      myUser: entity.myUser, 
+      userId: entity.userId, 
       Titre: entity.Titre, 
       Details: entity.Details,
       Ville_depart: entity.Ville_depart,
@@ -88,7 +87,7 @@ class AnnoncesTransporteur{
       String toString() {
     return '''Annonce: {
       'annonce_id' : $annonce_id
-      'myUser': $myUser
+      'myUser': $userId
       'Titre': $Titre
       'Details': $Details
       'Ville_depart': $Ville_depart

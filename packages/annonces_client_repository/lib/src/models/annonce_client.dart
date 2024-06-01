@@ -1,13 +1,12 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:user_repository/user_repository.dart';
 import '../entities/annonce_client_entity.dart';
 
 class AnnoncesClient{
 
   String annonce_id;
-  MyUsers myUser;
+  String userId;
   String Titre;
   String Details;
   String Ville_depart;
@@ -21,7 +20,7 @@ class AnnoncesClient{
 
   AnnoncesClient({
     required this.annonce_id,
-    required this.myUser,
+    required this.userId,
     required this.Titre,
     required this.Details,
     required this.Ville_depart,
@@ -36,7 +35,7 @@ class AnnoncesClient{
 
     static final empty = AnnoncesClient(
       annonce_id: '', 
-      myUser: MyUsers.empty, 
+      userId: '', 
       Titre: '', 
       Details: '', 
       Ville_depart: '', 
@@ -52,7 +51,7 @@ class AnnoncesClient{
     AnnoncesClientEntity toEntity(){
     return AnnoncesClientEntity(
       annonce_id : annonce_id,
-      myUser: myUser,
+      userId: userId,
       Titre: Titre,
       Details: Details,
       Ville_depart: Ville_depart,
@@ -69,7 +68,7 @@ class AnnoncesClient{
   static AnnoncesClient fromEntity(AnnoncesClientEntity entity) {
     return AnnoncesClient(
       annonce_id: entity.annonce_id,
-      myUser: entity.myUser, 
+      userId: entity.userId, 
       Titre: entity.Titre, 
       Details: entity.Details,
       Ville_depart: entity.Ville_depart,
@@ -87,7 +86,7 @@ class AnnoncesClient{
       String toString() {
     return '''Annonce: {
       'annonce_id' : $annonce_id
-      'myUser': $myUser
+      'userId': $userId
       'Titre': $Titre
       'Details': $Details
       'Ville_depart': $Ville_depart

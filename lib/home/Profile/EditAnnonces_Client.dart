@@ -34,7 +34,6 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
   bool depart = false;
 
   final _formKey = GlobalKey<FormState>();
-
   
 
   @override

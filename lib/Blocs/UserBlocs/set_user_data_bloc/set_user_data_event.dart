@@ -12,6 +12,25 @@ class SetUserData extends SetUserDataEvent{
 
   const SetUserData(this.myUser);
 
-    @override
+  @override
   List<Object> get props => [myUser];
+}
+
+class SetEmail extends SetUserDataEvent{
+  final MyUsers myUser;
+  final String email;
+
+  const SetEmail(this.myUser,this.email);
+
+  @override
+  List<Object> get props => [myUser,email];
+}
+
+class SetPhone extends SetUserDataEvent{
+  final String phone;
+
+  const SetPhone(this.phone);
+
+  @override
+  List<Object> get props => [phone];
 }

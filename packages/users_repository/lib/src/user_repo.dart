@@ -15,6 +15,10 @@ abstract class UserRepository {
 
   Future <MyUsers> linkEmailToPhoneAuth(MyUsers myuser);
 
+  Future <void> setEmail(MyUsers myUser, String email);
+
+  Future <void> setPhoneNumber(String phoneNumber);
+
   Future <void> logOut();
 
   Future<MyUsers> getMyUser(String myUserId);

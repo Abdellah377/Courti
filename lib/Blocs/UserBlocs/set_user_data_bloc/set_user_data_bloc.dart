@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,6 +13,7 @@ class SetUserDataBloc extends Bloc<SetUserDataEvent, SetUserDataState> {
   SetUserDataBloc({
     required UserRepository myUserRepository
   }) :  _userRepository = myUserRepository , super(SetUserDataInitial()) {
+    
     on<SetUserData>((event, emit) async{
       emit(SetUserDataLoading());
       try {
@@ -21,5 +24,28 @@ class SetUserDataBloc extends Bloc<SetUserDataEvent, SetUserDataState> {
         emit(SetUserDataFailure());
       }
     });
+
+    on<SetEmail>((event, emit) async{
+      emit(SetUserDataLoading());
+      try {
+        await _userRepository.setEmail(event.myUser,event.email);
+        emit(SetUserDataSuccess());
+      } catch (e) {
+        print(e.toString());
+        emit(SetUserDataFailure());
+      }
+    });
+
+    on<SetPhone>((event, emit) async{
+      emit(SetUserDataLoading());
+      try {
+        await _userRepository.setPhoneNumber(event.phone);
+        emit(SetUserDataSuccess());
+      } catch (e) {
+        print(e.toString());
+        emit(SetUserDataFailure());
+      }
+    });
+
   }
 }

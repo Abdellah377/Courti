@@ -6,6 +6,8 @@ import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart'
     as GetAnnonceTransporteur;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/bloc/get_user_by_id_bloc.dart';
 import 'package:kourti_application_1/home/Users/UserProfile.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -16,6 +18,11 @@ class UserProfile_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider<GetUserByIdBloc>(
+        create: (context) => GetUserByIdBloc(
+          myUserRepository: context.read<AuthentificationBloc>().userRepository
+          )
+        ),
       BlocProvider<GetAnnonceClient.GetAnnonceClientBloc>(
           create: (context) => GetAnnonceClient.GetAnnonceClientBloc(
               annonceRepo: FirebaseAnnonceClientRepo())
