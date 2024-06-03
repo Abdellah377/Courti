@@ -25,7 +25,7 @@ class SetUserDataBloc extends Bloc<SetUserDataEvent, SetUserDataState> {
       }
     });
 
-    on<SetEmail>((event, emit) async{
+    on<SetEmail>((event, emit) async {
       emit(SetUserDataLoading());
       try {
         await _userRepository.setEmail(event.myUser,event.email);
@@ -39,10 +39,37 @@ class SetUserDataBloc extends Bloc<SetUserDataEvent, SetUserDataState> {
     on<SetPhone>((event, emit) async{
       emit(SetUserDataLoading());
       try {
-        await _userRepository.setPhoneNumber(event.phone);
+        await _userRepository.setPhoneNumber(event.myUser, event.phone);
         emit(SetUserDataSuccess());
       } catch (e) {
         print(e.toString());
+        emit(SetUserDataFailure());
+      }
+    });
+
+    on<VerSetPhone>((event, emit) async{
+      emit(SetUserDataLoading());
+      try {
+        bool isVerified = await _userRepository.verifyUpdateOTP(event.otp);
+        if (isVerified == true) {
+          _userRepository.setUserData(event.myUser);
+        } else {
+          throw "   [     otp wrong     ]   ";
+        }
+        emit(SetUserDataSuccess());
+      } catch (e) {
+        print(e.toString());
+        emit(SetUserDataFailure());
+      }
+    });
+
+
+    on<setPassword>((event, emit) async{
+      emit(SetUserDataLoading());
+      try {
+        await _userRepository.setPassword(event.myUser, event.password);
+        emit(SetUserDataSuccess());
+      } catch (e) {
         emit(SetUserDataFailure());
       }
     });

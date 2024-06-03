@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/set_user_data_bloc/set_user_data_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/sign_up_bloc/sign_up_bloc.dart';
 import 'package:kourti_application_1/auth/welcome_page.dart';
 import 'package:pinput/pinput.dart';
@@ -10,16 +11,25 @@ import 'package:user_repository/user_repository.dart';
 
 class Otp extends StatefulWidget {
   final MyUsers myuser;
-  const Otp(this.myuser, {super.key});
+  final bool verw;
+  const Otp(this.myuser, this.verw,{super.key});
 
   @override
   State<Otp> createState() => _MyVerifyState();
 }
 
 class _MyVerifyState extends State<Otp> {
+
+  late bool ver;
   final _formKey = GlobalKey<FormState>();
   final otpController = TextEditingController();
   final focusNode = FocusNode();
+
+  @override
+  void initState() {
+    ver = widget.verw;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +160,13 @@ class _MyVerifyState extends State<Otp> {
                         focusNode.unfocus();
                         if (_formKey.currentState!.validate()) {
                           setState(() {
-                            context.read<SignUpBloc>().add(SignUpRequired(
-                                widget.myuser, otpController.text));
+                            if (ver == true) {
+                              context.read<SignUpBloc>().add(SignUpRequired(
+                              widget.myuser, otpController.text));
+                            } else {
+                              context.read<SetUserDataBloc>().add(VerSetPhone(widget.myuser, otpController.text));
+                              Navigator.pop(context);
+                            }
                           });
                         }
                       },

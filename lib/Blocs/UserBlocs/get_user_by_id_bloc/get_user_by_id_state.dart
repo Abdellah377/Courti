@@ -9,10 +9,7 @@ sealed class GetUserByIdState extends Equatable {
 
 final class GetUserByIdInitial extends GetUserByIdState {}
 final class GetUserByIdLoading extends GetUserByIdState {}
-final class GetUserByIdFailed extends GetUserByIdState {
-  final String errorMsg;
-  const GetUserByIdFailed(this.errorMsg);
-}
+final class GetUserByIdFailed extends GetUserByIdState {}
 final class GetUserByIdSuccess extends GetUserByIdState {
   final MyUsers myUser;
   const GetUserByIdSuccess(this.myUser);

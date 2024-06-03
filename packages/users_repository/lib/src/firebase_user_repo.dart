@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,7 +46,7 @@ class FirebaseUserRepo implements UserRepository {
     try {
       await _firebaseAuth.signInWithPhoneNumber(phone);
     } catch (e) {
-      print("WAAAAAAAAAAAAAAAAAAAAAAAAA: " + e.toString());
+      print(e.toString());
       rethrow;
     }
   }
@@ -76,6 +77,19 @@ class FirebaseUserRepo implements UserRepository {
         PhoneAuthProvider.credential(
             verificationId: verificationId, smsCode: otp));
     return credentials.user != null ? true : false;
+  }
+
+  @override
+  Future<bool> verifyUpdateOTP(String otp) async {
+    try {
+      await _firebaseAuth.currentUser!.updatePhoneNumber(
+        PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: otp));
+        return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   @override
@@ -117,7 +131,7 @@ class FirebaseUserRepo implements UserRepository {
       return userCollection.doc(myUserId).get().then((value) =>
         MyUsers.fromEntity(UsersEntity.fromDocument(value.data()!)));
     } catch (e) {
-      print("[      ERROR         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!]"+e.toString());
+      print(e.toString());
       rethrow;
     }
   }
@@ -149,32 +163,64 @@ class FirebaseUserRepo implements UserRepository {
   }
   
   @override
-  Future<void> setEmail(MyUsers myUser, String email) async{
+  Future<bool> setEmail(MyUsers myUser, String email) async {
     try {
       User user = _firebaseAuth.currentUser!;
-      await user.reauthenticateWithCredential(
-        EmailAuthProvider.credential(
-          email: email,
-          password: myUser.Password
-        )
+
+      // Reauthenticate the user
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: myUser.E_mail,
+        password: myUser.Password,
       );
-      myUser.E_mail = email;
-      await setUserData(myUser);
+      await user.reauthenticateWithCredential(credential);
+
+      await user.verifyBeforeUpdateEmail(email);
+
+      const checkInterval = Duration(seconds: 5);
+      try {
+        Timer.periodic(checkInterval, (timer) async {
+          await user.reload();
+          print("[  User  ]"+user.email.toString());
+          _firebaseAuth.authStateChanges().listen((User? updatedUser) async {
+              if (updatedUser != null && updatedUser.emailVerified && updatedUser.email == email) {
+                timer.cancel();
+                myUser.E_mail = email;
+                await setUserData(myUser); 
+              }
+            }
+          );
+        });
+      } catch (e) {
+        await _firebaseAuth.signOut();
+        UserCredential newUserCredential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: myUser.Password,
+        );
+        User newUser = newUserCredential.user!;
+        await newUser.reload();
+        myUser.E_mail = email;
+        await setUserData(myUser); 
+      }
+      return true;
     } catch (e) {
       print(e.toString());
-      rethrow;
+      return false;
     }
   }
+
+
+
   
   @override
-  Future<void> setPhoneNumber(String phoneNumber) async{
+  Future<void> setPhoneNumber(MyUsers myUser,String phoneNumber) async{
     try {
       await _firebaseAuth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        // timeout: const Duration(minutes: 2),
+        // timeout: const Duration(minutes: 1),
 
         verificationCompleted: (credential) async {
-          await FirebaseAuth.instance.currentUser!.updatePhoneNumber(credential);
+          await _firebaseAuth.currentUser!.updatePhoneNumber(credential);
+
         },
 
         codeSent: (verificationId, [forceResendingToken]) async {
@@ -188,11 +234,37 @@ class FirebaseUserRepo implements UserRepository {
         verificationFailed: (e){
           print(e.toString());
         }, 
-        // codeAutoRetrievalTimeout: null
-        );
+      );
     } catch (e) {
       print(e.toString());
       rethrow;
     }
+  }
+  
+  @override
+  Future <User> getCurrentUser() async{
+    User user = _firebaseAuth.currentUser!;
+    return user;
+  }
+  
+  @override
+  Future<void> setPassword(MyUsers myUser, String password) async{
+    try {
+      User user = _firebaseAuth.currentUser!;
+      await user.reauthenticateWithCredential(
+        EmailAuthProvider.credential(
+          email: myUser.E_mail,
+          password: myUser.Password
+        )
+      );
+
+      await user.updatePassword(password);
+
+      myUser.Password = password;
+      await setUserData(myUser);
+    } catch (e) {
+      print(e.toString());
+    }
+
   }
 }

@@ -56,11 +56,11 @@ class Appview extends StatelessWidget {
               child: PersistentNavBarScreen(),
             );
           }
-          else if(state.status == AuthentificationStatus.unknown){
-             return  Center(
-              child: CircularProgressIndicator(),
-              );
-          }
+          // else if(state.status == AuthentificationStatus.unknown){
+          //    return  Center(
+          //     child: CircularProgressIndicator(),
+          //     );
+          // }
           else{
             return Welcome_page();
           }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/set_user_data_bloc/set_user_data_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/sign_up_bloc/sign_up_bloc.dart';
 import 'package:kourti_application_1/auth/otp.dart';
 import 'package:user_repository/user_repository.dart';
@@ -308,26 +309,32 @@ class _SignupState extends State<Signup> {
                                   myuser.Nom = usernameController.text;
                                   myuser.Type = TypeController;
                                   myuser.Password = passwordController.text;
-                                  myuser.Telephone =
-                                      "+212${numTelController.text}";
+                                  myuser.Telephone = "+212${numTelController.text}";
                                   setState(() {
                                     context
                                         .read<SignUpBloc>()
                                         .add(phoneAuth(myuser.Telephone));
                                   });
 
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BlocProvider<SignUpBloc>(
-                                                create: (context) => SignUpBloc(
-                                                    context
-                                                        .read<
-                                                            AuthentificationBloc>()
-                                                        .userRepository),
-                                                child: Otp(myuser),
-                                              )));
+                                 Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                        MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider<SetUserDataBloc>(
+                                              create: (context) => SetUserDataBloc(
+                                                  myUserRepository: context.read<AuthentificationBloc>().userRepository),
+                                                ),
+                                            BlocProvider<SignUpBloc>(
+                                              create: (context) => SignUpBloc(
+                                                  context.read<AuthentificationBloc>().userRepository),
+                                                ),
+                                              ],
+                                            child: Otp(myuser, true),
+                                        )
+                                      )
+                                    );
                                 }
                               },
                               color: Color(0xff0095FF),

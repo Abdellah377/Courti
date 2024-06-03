@@ -33,6 +33,7 @@ class _EditProfileState extends State<EditProfile> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 1));
           setState(() {});
         },
         child: SingleChildScrollView(

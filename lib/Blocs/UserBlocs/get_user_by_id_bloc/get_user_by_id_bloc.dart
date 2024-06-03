@@ -16,8 +16,7 @@ class GetUserByIdBloc extends Bloc<GetUserByIdEvent, GetUserByIdState> {
         MyUsers myUser = await _userRepository.getMyUser(event.myUserid);
         emit(GetUserByIdSuccess(myUser));
       } catch (e) {
-        emit(GetUserByIdFailed(e.toString()));
-        print("[      ERROR         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!]"+e.toString());
+        emit(GetUserByIdFailed());
       }
     });
   }

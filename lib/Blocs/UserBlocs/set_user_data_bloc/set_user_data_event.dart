@@ -27,10 +27,31 @@ class SetEmail extends SetUserDataEvent{
 }
 
 class SetPhone extends SetUserDataEvent{
+  final MyUsers myUser;
   final String phone;
 
-  const SetPhone(this.phone);
+  const SetPhone(this.myUser, this.phone);
 
   @override
-  List<Object> get props => [phone];
+  List<Object> get props => [myUser, phone];
+}
+
+class VerSetPhone extends SetUserDataEvent{
+  final MyUsers myUser;
+  final String otp;
+
+  const VerSetPhone(this.myUser, this.otp);
+
+  @override
+  List<Object> get props => [myUser, otp];
+}
+
+class setPassword extends SetUserDataEvent{
+  final MyUsers myUser;
+  final String password;
+
+  const setPassword(this.myUser, this.password);
+
+  @override
+  List<Object> get props => [myUser, password];
 }
