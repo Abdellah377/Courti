@@ -19,7 +19,7 @@ abstract class UserRepository {
 
   Future <MyUsers> linkEmailToPhoneAuth(MyUsers myuser);
 
-  Future <bool> setEmail(MyUsers myUser, String email);
+  Future <void> setEmail(MyUsers myUser, String email);
 
   Future <void> setPassword(MyUsers Myuser, String password);
 

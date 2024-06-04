@@ -8,6 +8,8 @@ class UsersEntity{
   String E_mail;
   String Telephone;
   String Password;
+  num Rating;
+  num NbRaters;
 
   UsersEntity({
     required this.user_id,
@@ -16,6 +18,8 @@ class UsersEntity{
     required this.E_mail,
     required this.Telephone,
     required this.Password,
+    required this.Rating,
+    required this.NbRaters,
   });
 
   Map<String,Object?> toDocuments(){
@@ -26,6 +30,8 @@ class UsersEntity{
       'E_mail': E_mail,
       'Telephone': Telephone,
       'Password': Password,
+      'Rating': Rating,
+      'NbRaters': NbRaters,
     };
   }
 
@@ -36,7 +42,9 @@ class UsersEntity{
       Type: doc['Type'],
       E_mail: doc['E_mail'], 
       Telephone: doc['Telephone'], 
-      Password: doc['Password']
+      Password: doc['Password'],
+      Rating: doc['Rating'],
+      NbRaters: doc['NbRaters'],
       );
   }
 }

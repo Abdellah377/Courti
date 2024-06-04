@@ -21,6 +21,7 @@ import 'package:kourti_application_1/home/Annonces/Details_client.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/my_user_bloc/my_user_bloc.dart';
 import 'package:kourti_application_1/home/Profile/MyProfile_Screen.dart';
 import 'package:kourti_application_1/home/Annonces/SearchAnnonces_Screen.dart';
+import 'package:kourti_application_1/home/Users/UserProfile_Screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Annonce extends StatefulWidget {
@@ -290,42 +291,52 @@ class _AnnonceState extends State<Annonce> {
                                       (GetUserById(myUserid: annonce.userId)));
                                   return BlocBuilder<GetUserByIdBloc, GetUserByIdState>(
                                     builder: (context, state) {
-                                      if (state is GetUserByIdSuccess) {
+                                      if (state is GetUserByIdSuccess ) {
                                           return Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             const SizedBox(height: 20),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 15),
-                                                  width: 50,
-                                                  height: 50,
-                                                  decoration: const BoxDecoration(
-                                                      color: Colors.amber,
-                                                      shape: BoxShape.circle),
-                                                ),
-                                                const SizedBox(width: 10),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      state.myUser.Nom,
-                                                      style: const TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Text(DateFormat(
-                                                            "yyyy-MM-dd HH:mm")
-                                                        .format(
-                                                            annonce.Created_at)),
-                                                  ],
-                                                ),
-                                              ],
+                                            MaterialButton(
+                                              onPressed: () {
+                                                PersistentNavBarNavigator.pushNewScreen(
+                                                context,
+                                                screen: UserProfile_Screen(state.myUser),
+                                                withNavBar: false,
+                                                pageTransitionAnimation:
+                                                PageTransitionAnimation.cupertino,);
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    margin: const EdgeInsets.only(
+                                                        left: 15),
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: const BoxDecoration(
+                                                        color: Colors.amber,
+                                                        shape: BoxShape.circle),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        state.myUser.Nom,
+                                                        style: const TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+                                                      Text(DateFormat(
+                                                              "yyyy-MM-dd HH:mm")
+                                                          .format(
+                                                              annonce.Created_at)),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                             Container(
                                               margin: const EdgeInsets.symmetric(

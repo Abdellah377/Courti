@@ -11,7 +11,7 @@ class Welcome_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Container(
           // we will give media query height
           // double.infinity make it big as my parent allows

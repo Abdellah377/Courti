@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:animated_rating_stars/animated_rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -54,6 +55,31 @@ class UserProfile extends StatelessWidget {
                           height: 160,
                           decoration: BoxDecoration(
                               color: Colors.amber, shape: BoxShape.circle),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        AnimatedRatingStars(
+                          initialRating: 3.5,
+                          minRating: 0.0,
+                          maxRating: 5.0,
+                          filledColor: Colors.amber,
+                          emptyColor: Colors.grey,
+                          filledIcon: Icons.star,
+                          halfFilledIcon: Icons.star_half,
+                          emptyIcon: Icons.star_border,
+                          onChanged: (double rating) {
+                            print('Rating: $rating');
+                          },
+                          displayRatingValue: true,
+                          interactiveTooltips: true,
+                          customFilledIcon: Icons.star,
+                          customHalfFilledIcon: Icons.star_half,
+                          customEmptyIcon: Icons.star_border,
+                          starSize: 30.0,
+                          animationDuration: Duration(milliseconds: 300),
+                          animationCurve: Curves.easeInOut,
+                          readOnly: false,
                         ),
                         SizedBox(
                           height: 20,

@@ -163,11 +163,10 @@ class FirebaseUserRepo implements UserRepository {
   }
   
   @override
-  Future<bool> setEmail(MyUsers myUser, String email) async {
+  Future<void> setEmail(MyUsers myUser, String email) async {
     try {
       User user = _firebaseAuth.currentUser!;
 
-      // Reauthenticate the user
       AuthCredential credential = EmailAuthProvider.credential(
         email: myUser.E_mail,
         password: myUser.Password,
@@ -179,19 +178,20 @@ class FirebaseUserRepo implements UserRepository {
       const checkInterval = Duration(seconds: 5);
       try {
         Timer.periodic(checkInterval, (timer) async {
-          await user.reload();
-          print("[  User  ]"+user.email.toString());
-          _firebaseAuth.authStateChanges().listen((User? updatedUser) async {
-              if (updatedUser != null && updatedUser.emailVerified && updatedUser.email == email) {
-                timer.cancel();
-                myUser.E_mail = email;
-                await setUserData(myUser); 
-              }
-            }
-          );
+          User updatedUser = _firebaseAuth.currentUser!;
+          await updatedUser.reload();
+          if (user.emailVerified && updatedUser.email == email) {
+            print("     [       GOOD       ]       ");
+            timer.cancel();
+            myUser.E_mail = email;
+            await setUserData(myUser); 
+          }
+          else{
+            print("     [       WAITING       ]       ");
+          }
         });
       } catch (e) {
-        await _firebaseAuth.signOut();
+        print("     [       MEH       ]       ");
         UserCredential newUserCredential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email,
           password: myUser.Password,
@@ -201,10 +201,8 @@ class FirebaseUserRepo implements UserRepository {
         myUser.E_mail = email;
         await setUserData(myUser); 
       }
-      return true;
     } catch (e) {
       print(e.toString());
-      return false;
     }
   }
 

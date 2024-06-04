@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_prefixes, file_names
 
+import 'package:animated_rating_stars/animated_rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -81,6 +82,39 @@ class _MyProfileState extends State<MyProfile> {
                         height: 160,
                         decoration: BoxDecoration(
                             color: Colors.amber, shape: BoxShape.circle),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      
+                      // Text(
+                      //   "${widget.myUsers.Rating} (${widget.myUsers.NbRaters})",
+                      //   style: TextStyle(fontSize: 22),),
+
+                      AnimatedRatingStars(
+                        initialRating: 3.5,
+                        minRating: 0.0,
+                        maxRating: 5.0,
+                        filledColor: Colors.amber,
+                        emptyColor: Colors.grey,
+                        filledIcon: Icons.star,
+                        halfFilledIcon: Icons.star_half,
+                        emptyIcon: Icons.star_border,
+                        onChanged: (double rating) {
+                          setState(() {
+                            
+                          });
+                          print('Rating: $rating');
+                        },
+                        displayRatingValue: true,
+                        interactiveTooltips: true,
+                        customFilledIcon: Icons.star,
+                        customHalfFilledIcon: Icons.star_half,
+                        customEmptyIcon: Icons.star_border,
+                        starSize: 30.0,
+                        animationDuration: Duration(milliseconds: 300),
+                        animationCurve: Curves.easeInOut,
+                        readOnly: true,
                       ),
                       SizedBox(
                         height: 20,

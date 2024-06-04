@@ -239,12 +239,7 @@ class _LoginScreenState extends State<Login> {
                                     onPressed: () {
                                       print(success);
                                       if (_formKey1.currentState!.validate()) {
-                                        context.read<LogInBloc>().add(
-                                            LogInMail(Email.text,
-                                                password_mail.text));
-                                        print(
-                                            "LOOOOOOOOOOOOOOOOOOOOOOOOOOGIN 2222 $LoginRequired");
-
+                                        context.read<LogInBloc>().add(LogInMail(Email.text,password_mail.text));
                                         // Navigator.push(context, MaterialPageRoute(builder: (context) => Appview()));
                                       }
                                     },
