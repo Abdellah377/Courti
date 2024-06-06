@@ -61,13 +61,19 @@ dependencies:
   intl: ^0.19.0
   uuid: ^4.4.0
   get: ^4.6.6
-  persistent_bottom_nav_bar: any
+  persistent_bottom_nav_bar: ^5.0.2
   animated_rating_stars: ^1.0.1
   image_picker: ^1.1.2
   image_cropper: ^7.0.1
   provider: ^6.1.2
   shared_preferences: ^2.2.3
   flutter_localization: ^0.2.0
+
+dependency_overrides:
+  modal_bottom_sheet:
+    git: 
+      url: https://github.com/danReynolds/modal_bottom_sheet.git
+      path: modal_bottom_sheet
 
 dev_dependencies:
   flutter_test:
