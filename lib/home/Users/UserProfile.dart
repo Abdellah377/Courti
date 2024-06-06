@@ -50,12 +50,24 @@ class UserProfile extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          width: 160,
-                          height: 160,
-                          decoration: BoxDecoration(
-                              color: Colors.amber, shape: BoxShape.circle),
-                        ),
+                        myUsers.picture == ""
+                          ? Container(
+                              width: 160,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                  color: Colors.amber, shape: BoxShape.circle),
+                            )
+                          : Container(
+                              width: 160,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image:
+                                          NetworkImage(myUsers.picture),
+                                      fit: BoxFit.cover)),
+                            ),
                         SizedBox(
                           height: 20,
                         ),
@@ -79,7 +91,7 @@ class UserProfile extends StatelessWidget {
                           starSize: 30.0,
                           animationDuration: Duration(milliseconds: 300),
                           animationCurve: Curves.easeInOut,
-                          readOnly: false,
+                          readOnly: true,
                         ),
                         SizedBox(
                           height: 20,
@@ -193,15 +205,25 @@ class UserProfile extends StatelessWidget {
                                             const SizedBox(height: 20),
                                             Row(
                                               children: [
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 15),
-                                                  width: 50,
-                                                  height: 50,
-                                                  decoration: const BoxDecoration(
-                                                      color: Colors.amber,
-                                                      shape: BoxShape.circle),
-                                                ),
+                                                const SizedBox(width: 20,),
+                                                myUsers.picture == ""
+                                                ? Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.amber, shape: BoxShape.circle),
+                                                  )
+                                                : Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.grey,
+                                                        shape: BoxShape.circle,
+                                                        image: DecorationImage(
+                                                            image:
+                                                                NetworkImage(myUsers.picture),
+                                                            fit: BoxFit.cover)),
+                                                  ),
                                                 const SizedBox(width: 10),
                                                 Column(
                                                   crossAxisAlignment:
@@ -495,15 +517,25 @@ class UserProfile extends StatelessWidget {
                                         const SizedBox(height: 20),
                                         Row(
                                           children: [
-                                            Container(
-                                              margin:
-                                                  const EdgeInsets.only(left: 15),
-                                              width: 50,
-                                              height: 50,
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.amber,
-                                                  shape: BoxShape.circle),
-                                            ),
+                                            const SizedBox(width: 20,),
+                                            myUsers.picture == ""
+                                            ? Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.amber, shape: BoxShape.circle),
+                                              )
+                                            : Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey,
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                        image:
+                                                            NetworkImage(myUsers.picture),
+                                                        fit: BoxFit.cover)),
+                                              ),
                                             const SizedBox(width: 10),
                                             Column(
                                               crossAxisAlignment:

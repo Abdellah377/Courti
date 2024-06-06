@@ -34,4 +34,6 @@ abstract class UserRepository {
   Future<List<MyUsers>>getUsersByArg(String args, String argvalue);
   
   Future<User> getCurrentUser();
+
+  Future<String> UploadPicture(String file, String userId);
 }

@@ -57,14 +57,24 @@ class My_Details_Transporteur extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20,),
-                    Container(
-                      width: 160,
-                      height: 160,
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        shape: BoxShape.circle
-                      ),
-                    ),
+                    myUser.picture == ""
+                          ? Container(
+                              width: 160,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                  color: Colors.amber, shape: BoxShape.circle),
+                            )
+                          : Container(
+                              width: 160,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image:
+                                          NetworkImage(myUser.picture),
+                                      fit: BoxFit.cover)),
+                            ),
                     SizedBox(height: 20,),
                     Row(
                       children: [

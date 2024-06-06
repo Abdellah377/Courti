@@ -11,6 +11,7 @@ import 'package:kourti_application_1/Blocs/UserBlocs/get_user_by_id_bloc/get_use
 import 'package:kourti_application_1/Blocs/UserBlocs/get_users_bloc/get_users_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/my_user_bloc/my_user_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/upload_picture_bloc/upload_picture_bloc.dart';
 import 'package:kourti_application_1/home/PersistentNavBar.dart';
 import '../auth/welcome_page.dart';
 
@@ -35,6 +36,10 @@ class Appview extends StatelessWidget {
                     myUserRepository: context.read<AuthentificationBloc>().userRepository
                   )..add(GetMyUser(myUserid: context.read<AuthentificationBloc>().state.user!.user_id)),
                 ),
+                BlocProvider<UploadPictureBloc>(
+                  create: (context) => UploadPictureBloc(
+                    userRepository: context.read<AuthentificationBloc>().userRepository)
+                  ),
                 BlocProvider<GetUserByIdBloc>(
                   create: (context) => GetUserByIdBloc(
                     myUserRepository: context.read<AuthentificationBloc>().userRepository

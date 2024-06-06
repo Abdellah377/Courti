@@ -43,14 +43,24 @@ class SearchUser extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: Container(
-                                        margin: const EdgeInsets.only(left: 15),
-                                        width: 95,
-                                        height: 95,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.amber,
-                                            shape: BoxShape.circle),
-                                      ),
+                                      child: state.myUsers[i].picture == ""
+                                      ? Container(
+                                          width: 95,
+                                          height: 95,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.amber, shape: BoxShape.circle),
+                                        )
+                                      : Container(
+                                          width: 95,
+                                          height: 95,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image:
+                                                      NetworkImage(state.myUsers[i].picture),
+                                                  fit: BoxFit.cover)),
+                                        ),
                                     ),
                                     Expanded(
                                       flex: 2,

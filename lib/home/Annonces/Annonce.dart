@@ -12,7 +12,7 @@ import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/add_annonce_transporteur_bloc/add_annonce_transporteur_bloc.dart';
 import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_transporteur_bloc/get_annonce_transporteur_bloc.dart'
     as GetAnnonceTransporteur;
-import 'package:kourti_application_1/Blocs/UserBlocs/get_user_by_id_bloc/get_user_by_id_bloc.dart';
+import 'package:kourti_application_1/Blocs/UserBlocs/get_users_bloc/get_users_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
 import 'package:kourti_application_1/home/Annonces/Add_annonce_Client.dart';
 import 'package:kourti_application_1/home/Annonces/Add_annonce_transporteur.dart';
@@ -158,7 +158,7 @@ class _AnnonceState extends State<Annonce> {
                     width: 2000,
                     child: RefreshIndicator(
                       onRefresh: () async {
-                        await Future.delayed(Duration(seconds: 2));
+                        await Future.delayed(Duration(seconds: 1));
                         setState(() {});
                       },
                       child: SingleChildScrollView(
@@ -281,294 +281,319 @@ class _AnnonceState extends State<Annonce> {
                                     ),
                                   ],
                                 )),
-                            ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
+                              ListView.builder(
+                                physics: const ClampingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: state.annonces.length,
                                 itemBuilder: (context, int i) {
                                   final annonce = state.annonces[i];
-                                  context.read<GetUserByIdBloc>().add(
-                                      (GetUserById(myUserid: annonce.userId)));
-                                  return BlocBuilder<GetUserByIdBloc, GetUserByIdState>(
+                                  return BlocBuilder<GetUsersBloc, GetUsersState>(
                                     builder: (context, state) {
-                                      if (state is GetUserByIdSuccess ) {
-                                          return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 20),
-                                            MaterialButton(
-                                              onPressed: () {
-                                                PersistentNavBarNavigator.pushNewScreen(
-                                                context,
-                                                screen: UserProfile_Screen(state.myUser),
-                                                withNavBar: false,
-                                                pageTransitionAnimation:
-                                                PageTransitionAnimation.cupertino,);
-                                              },
-                                              child: Row(
+                                      if (state is GetUsersSuccess ) {
+                                          return ListView.builder(
+                                            physics: const ClampingScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: state.myUsers.length,
+                                            itemBuilder: (context, int j) {
+                                              if (state.myUsers[j].user_id == annonce.userId) {
+                                              return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Container(
-                                                    margin: const EdgeInsets.only(
-                                                        left: 15),
-                                                    width: 50,
-                                                    height: 50,
-                                                    decoration: const BoxDecoration(
-                                                        color: Colors.amber,
-                                                        shape: BoxShape.circle),
-                                                  ),
-                                                  const SizedBox(width: 10),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        state.myUser.Nom,
-                                                        style: const TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.bold),
-                                                      ),
-                                                      Text(DateFormat(
-                                                              "yyyy-MM-dd HH:mm")
-                                                          .format(
-                                                              annonce.Created_at)),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.symmetric(
-                                                  vertical: 10, horizontal: 20),
-                                              decoration: BoxDecoration(
-                                                  image: const DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/abstract-orange-and-white-background-vector3.jpg"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color:
-                                                            Colors.grey.shade400,
-                                                        blurRadius: 5,
-                                                        offset:
-                                                            const Offset(3, 3))
-                                                  ]),
-                                              child: MaterialButton(
-                                                onPressed: () {
-                                                  Navigator.push(
+                                                  const SizedBox(height: 20),
+                                                  MaterialButton(
+                                                    onPressed: () {
+                                                      PersistentNavBarNavigator.pushNewScreen(
                                                       context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Details_Client(
-                                                                  annonce,
-                                                                  state
-                                                                      .myUser)));
-                                                },
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
+                                                      screen: UserProfile_Screen(state.myUsers[j]),
+                                                      withNavBar: false,
+                                                      pageTransitionAnimation:
+                                                      PageTransitionAnimation.cupertino,);
+                                                    },
+                                                    child: Row(
                                                       children: [
-                                                        Expanded(
-                                                          child: Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    left: 10,
-                                                                    top: 20,
-                                                                    bottom: 10),
-                                                            child: Center(
-                                                              child: Text(
-                                                                annonce.Titre,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 20,
+                                                        state.myUsers[j].picture == ""
+                                                          ? Container(
+                                                              width: 50,
+                                                              height: 50,
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors.amber, shape: BoxShape.circle),
+                                                            )
+                                                          : Container(
+                                                              width: 50,
+                                                              height: 50,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.grey,
+                                                                  shape: BoxShape.circle,
+                                                                  image: DecorationImage(
+                                                                      image:
+                                                                          NetworkImage(state.myUsers[j].picture),
+                                                                      fit: BoxFit.cover)),
+                                                            ),
+                                                        const SizedBox(width: 10),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              state.myUsers[j].Nom,
+                                                              style: const TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight.bold),
+                                                            ),
+                                                            Text(DateFormat(
+                                                                    "yyyy-MM-dd HH:mm")
+                                                                .format(
+                                                                    annonce.Created_at)),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: const EdgeInsets.symmetric(
+                                                        vertical: 10, horizontal: 20),
+                                                    decoration: BoxDecoration(
+                                                        image: const DecorationImage(
+                                                          image: AssetImage(
+                                                              "assets/images/abstract-orange-and-white-background-vector3.jpg"),
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius.circular(20),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                              color:
+                                                                  Colors.grey.shade400,
+                                                              blurRadius: 5,
+                                                              offset:
+                                                                  const Offset(3, 3))
+                                                        ]),
+                                                    child: MaterialButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    Details_Client(
+                                                                        annonce,
+                                                                        state
+                                                                            .myUsers[j])));
+                                                      },
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20)),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                child: Container(
+                                                                  margin:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          left: 10,
+                                                                          top: 20,
+                                                                          bottom: 10),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      annonce.Titre,
+                                                                      style:
+                                                                          const TextStyle(
+                                                                        fontSize: 20,
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              left: 5,
-                                                              top: 10,
-                                                              right: 5),
-                                                      child: const Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                              "Ville départ:",
-                                                              style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                            )),
-                                                          ),
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                              "Ville d'arrivé:",
-                                                              style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                            )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Center(
-                                                              child: Text(annonce
-                                                                  .Ville_depart)),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                              child: Text(annonce
-                                                                  .Ville_darrive)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              left: 5,
-                                                              top: 10,
-                                                              right: 5),
-                                                      child: const Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                              "Date depart:",
-                                                              style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                            )),
-                                                          ),
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                              "Date d'arrivé:",
-                                                              style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                            )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                            child: Center(
-                                                                child: Text(DateFormat(
-                                                                        "yyyy-MM-dd HH:mm")
-                                                                    .format(annonce
-                                                                        .Date_depart)))),
-                                                        Expanded(
-                                                            child: Center(
-                                                                child: Text(DateFormat(
-                                                                        "yyyy-MM-dd HH:mm")
-                                                                    .format(annonce
-                                                                        .Date_darrive))))
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              left: 5,
-                                                              top: 10,
-                                                              right: 5),
-                                                      child: const Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                                    "Marcendise:",
-                                                                    style:
-                                                                        TextStyle(
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets.only(
+                                                                    left: 5,
+                                                                    top: 10,
+                                                                    right: 5),
+                                                            child: const Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "Ville départ:",
+                                                                    style: TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
-                                                                    ))),
+                                                                    ),
+                                                                  )),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "Ville d'arrivé:",
+                                                                    style: TextStyle(
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .underline,
+                                                                    ),
+                                                                  )),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                              "Tonnage:",
-                                                              style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                child: Center(
+                                                                    child: Text(annonce
+                                                                        .Ville_depart)),
                                                               ),
-                                                            )),
-                                                          ),
-                                                          Expanded(
-                                                            child: Center(
-                                                                child: Text(
-                                                              "Prix:",
-                                                              style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
+                                                              Expanded(
+                                                                child: Center(
+                                                                    child: Text(annonce
+                                                                        .Ville_darrive)),
                                                               ),
-                                                            )),
+                                                            ],
                                                           ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets.only(
+                                                                    left: 5,
+                                                                    top: 10,
+                                                                    right: 5),
+                                                            child: const Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "Date depart:",
+                                                                    style: TextStyle(
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .underline,
+                                                                    ),
+                                                                  )),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "Date d'arrivé:",
+                                                                    style: TextStyle(
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .underline,
+                                                                    ),
+                                                                  )),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                  child: Center(
+                                                                      child: Text(DateFormat(
+                                                                              "yyyy-MM-dd HH:mm")
+                                                                          .format(annonce
+                                                                              .Date_depart)))),
+                                                              Expanded(
+                                                                  child: Center(
+                                                                      child: Text(DateFormat(
+                                                                              "yyyy-MM-dd HH:mm")
+                                                                          .format(annonce
+                                                                              .Date_darrive))))
+                                                            ],
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets.only(
+                                                                    left: 5,
+                                                                    top: 10,
+                                                                    right: 5),
+                                                            child: const Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                          "Marcendise:",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            decoration:
+                                                                                TextDecoration
+                                                                                    .underline,
+                                                                          ))),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "Tonnage:",
+                                                                    style: TextStyle(
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .underline,
+                                                                    ),
+                                                                  )),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "Prix:",
+                                                                    style: TextStyle(
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .underline,
+                                                                    ),
+                                                                  )),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                child: Center(
+                                                                    child: Text(
+                                                                  annonce
+                                                                      .TypeMarchandise,
+                                                                  maxLines: 2,
+                                                                )),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                    child: Text(
+                                                                        "${annonce.tonnage}")),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                    child: Text(
+                                                                        "${annonce.prix}")),
+                                                              ),
+                                                            ],
+                                                          )
                                                         ],
                                                       ),
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Center(
-                                                              child: Text(
-                                                            annonce
-                                                                .TypeMarchandise,
-                                                            maxLines: 2,
-                                                          )),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                              child: Text(
-                                                                  "${annonce.tonnage}")),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                              child: Text(
-                                                                  "${annonce.prix}")),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } else {
+                                                  ),
+                                                ],
+                                                );
+                                              } else {
+                                                return const SizedBox(width: 0,);
+                                              }
+                                            }
+                                          );
+                                      } else if(state is GetUsersLoading){
                                         return const Center(
                                           child: CircularProgressIndicator(),
                                         );
+                                      } else if(state is GetUsersfailure){
+                                        return const Center(
+                                          child: Text("Error user"),
+                                        );
+                                      }
+                                      else{
+                                        return const SizedBox(height: 0,);
                                       }
                                     },
                                   );
@@ -585,13 +610,16 @@ class _AnnonceState extends State<Annonce> {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else {
+                } else if(state is GetAnnonceClient.GetAnnonceFaliure){
                   return const Center(
                     child: Text(
                       "Error!!!",
                       style: TextStyle(fontSize: 20),
                     ),
                   );
+                }
+                else{
+                  return const SizedBox(height: 0,);
                 }
               },
             ),
@@ -723,258 +751,284 @@ class _AnnonceState extends State<Annonce> {
                                 ],
                               )),
                           ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: const ClampingScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: state.annonces.length,
                             itemBuilder: (context, int i) {
                               final annonce = state.annonces[i];
-                              context.read<GetUserByIdBloc>().add((GetUserById(myUserid: annonce.userId)));
-                                return BlocBuilder<GetUserByIdBloc, GetUserByIdState>(
+                                return BlocBuilder<GetUsersBloc, GetUsersState>(
                                 builder: (context, state) {
-                                  if (state is GetUserByIdSuccess) {
-                                      return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(height: 20),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              margin:
-                                                  const EdgeInsets.only(left: 15),
-                                              width: 50,
-                                              height: 50,
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.amber,
-                                                  shape: BoxShape.circle),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  state.myUser.Nom,
-                                                  style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(
-                                                    DateFormat("yyyy-MM-dd HH:mm")
-                                                        .format(annonce.Created_at)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 20, horizontal: 20),
-                                          decoration: BoxDecoration(
-                                              image: const DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/abstract-orange-and-white-background-vector3.jpg"),
-                                                fit: BoxFit.cover,
+                                  if (state is GetUsersSuccess) {
+                                      return ListView.builder(
+                                        physics: const ClampingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: state.myUsers.length,
+                                        itemBuilder: (context, int j) {
+                                          if (state.myUsers[j].user_id == annonce.userId) {
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(height: 20),
+                                              Row(
+                                                children: [
+                                                  const SizedBox(width: 20,),
+                                                  state.myUsers[j].picture == ""
+                                                    ? Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                        decoration: const BoxDecoration(
+                                                            color: Colors.amber, shape: BoxShape.circle),
+                                                      )
+                                                    : Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.grey,
+                                                            shape: BoxShape.circle,
+                                                            image: DecorationImage(
+                                                                image:
+                                                                    NetworkImage(state.myUsers[j].picture),
+                                                                fit: BoxFit.cover)),
+                                                      ),
+                                                  const SizedBox(width: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        state.myUsers[j].Nom,
+                                                        style: const TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+                                                      Text(
+                                                          DateFormat("yyyy-MM-dd HH:mm")
+                                                              .format(annonce.Created_at)),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey.shade400,
-                                                    blurRadius: 5,
-                                                    offset: const Offset(3, 3))
-                                              ]),
-                                          child: MaterialButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Details_Transporteur(annonce, state.myUser)));
-                                            },
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Container(
-                                                        margin:
-                                                            const EdgeInsets.only(
-                                                                left: 10,
-                                                                top: 20,
-                                                                bottom: 10),
-                                                        child: Center(
-                                                          child: Text(
-                                                            annonce.Titre,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 20,
+                                              Container(
+                                                margin: const EdgeInsets.symmetric(
+                                                    vertical: 20, horizontal: 20),
+                                                decoration: BoxDecoration(
+                                                    image: const DecorationImage(
+                                                      image: AssetImage(
+                                                          "assets/images/abstract-orange-and-white-background-vector3.jpg"),
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(20),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.grey.shade400,
+                                                          blurRadius: 5,
+                                                          offset: const Offset(3, 3))
+                                                    ]),
+                                                child: MaterialButton(
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Details_Transporteur(annonce, state.myUsers[j])));
+                                                  },
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(20)),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Container(
+                                                              margin:
+                                                                  const EdgeInsets.only(
+                                                                      left: 10,
+                                                                      top: 20,
+                                                                      bottom: 10),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  annonce.Titre,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontSize: 20,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        margin: const EdgeInsets.only(
+                                                            left: 5, top: 10, right: 5),
+                                                        child: const Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "Ville départ:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "Ville d'arrivé:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5, top: 10, right: 5),
-                                                  child: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "Ville départ:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Center(
+                                                                child: Text(annonce.Ville_depart)),
                                                           ),
-                                                        )),
-                                                      ),
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "Ville d'arrivé:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
+                                                          Expanded(
+                                                            child: Center(
+                                                                child: Text(annonce.Ville_darrive)),
                                                           ),
-                                                        )),
+                                                        ],
                                                       ),
+                                                      Container(
+                                                        margin: const EdgeInsets.only(
+                                                            left: 5, top: 10, right: 5),
+                                                        child: const Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "Date depart:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "Date d'arrivé:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                              child: Center(
+                                                                  child: Text(DateFormat(
+                                                                          "yyyy-MM-dd HH:mm")
+                                                                      .format(annonce.Date_depart)))),
+                                                          Expanded(
+                                                              child: Center(
+                                                                  child: Text(DateFormat(
+                                                                          "yyyy-MM-dd HH:mm")
+                                                                      .format(annonce.Date_darrive))))
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        margin: const EdgeInsets.only(
+                                                            left: 5, top: 10, right: 5),
+                                                        child: const Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "N Vehicule:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "charge:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "Prix:",
+                                                                style: TextStyle(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                              )),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "${annonce.NbreVehicule}")),
+                                                          ),
+                                                          Expanded(
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "${annonce.charge} Kg")),
+                                                          ),
+                                                          Expanded(
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "${annonce.prix} Dh")),
+                                                          ),
+                                                        ],
+                                                      )
                                                     ],
                                                   ),
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Center(
-                                                          child: Text(annonce.Ville_depart)),
-                                                    ),
-                                                    Expanded(
-                                                      child: Center(
-                                                          child: Text(annonce.Ville_darrive)),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5, top: 10, right: 5),
-                                                  child: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "Date depart:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
-                                                        )),
-                                                      ),
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "Date d'arrivé:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
-                                                        )),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                        child: Center(
-                                                            child: Text(DateFormat(
-                                                                    "yyyy-MM-dd HH:mm")
-                                                                .format(annonce.Date_depart)))),
-                                                    Expanded(
-                                                        child: Center(
-                                                            child: Text(DateFormat(
-                                                                    "yyyy-MM-dd HH:mm")
-                                                                .format(annonce.Date_darrive))))
-                                                  ],
-                                                ),
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5, top: 10, right: 5),
-                                                  child: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "N Vehicule:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
-                                                        )),
-                                                      ),
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "charge:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
-                                                        )),
-                                                      ),
-                                                      Expanded(
-                                                        child: Center(
-                                                            child: Text(
-                                                          "Prix:",
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
-                                                        )),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Center(
-                                                          child: Text(
-                                                              "${annonce.NbreVehicule}")),
-                                                    ),
-                                                    Expanded(
-                                                      child: Center(
-                                                          child: Text(
-                                                              "${annonce.charge} Kg")),
-                                                    ),
-                                                    Expanded(
-                                                      child: Center(
-                                                          child: Text(
-                                                              "${annonce.prix} Dh")),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  } else {
+                                              ),
+                                            ],
+                                            );
+                                          }else{
+                                            return const SizedBox(width: 0,);
+                                          }
+                                        }
+                                      );
+                                  } else if(state is GetUsersLoading){
                                     return const Center(
                                       child: CircularProgressIndicator(),
                                     );
+                                  } else if(state is GetUsersfailure){
+                                    return const Center(
+                                      child: Text("Error user"),
+                                    );
+                                  }
+                                  else{
+                                    return const SizedBox(height: 0,);
                                   }
                                 },
                               );
@@ -991,13 +1045,16 @@ class _AnnonceState extends State<Annonce> {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else {
+                } else if(state is GetAnnonceTransporteur.GetAnnonceFaliure){
                   return const Center(
                     child: Text(
                       "Error!!!",
                       style: TextStyle(fontSize: 20),
                     ),
                   );
+                }
+                else{
+                  return const SizedBox(height: 0,);
                 }
               },
             ),

@@ -11,6 +11,7 @@ class MyUsers{
   String Password;
   num Rating;
   num NbRaters;
+  String picture;
 
   MyUsers({
     required this.user_id,
@@ -21,6 +22,7 @@ class MyUsers{
     required this.Password,
     required this.Rating,
     required this.NbRaters,
+    required this.picture,
   });
 
   static final empty = MyUsers(
@@ -32,6 +34,7 @@ class MyUsers{
       Password:'',
       Rating:0,
       NbRaters:0,
+      picture:'',
   );
 
   UsersEntity toEntity(){
@@ -44,6 +47,7 @@ class MyUsers{
       Password: Password,
       Rating: Rating,
       NbRaters: NbRaters,
+      picture: picture,
     );
   }
 
@@ -57,6 +61,7 @@ class MyUsers{
       Password: entity.Password,
       Rating: entity.Rating,
       NbRaters: entity.NbRaters,
+      picture: entity.picture,
       );
   }
 
