@@ -5,16 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/add_annonce_client_bloc/add_annonce_client_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Profile/EditAnnonces_Client.dart';
+import 'package:provider/provider.dart';
 import 'package:user_repository/user_repository.dart';
 
+// ignore: must_be_immutable
 class My_Details_Client extends StatelessWidget {
   final AnnoncesClient annoncesclient;
   final MyUsers myUser;
-  const My_Details_Client(this.annoncesclient, this.myUser, {super.key});
+  My_Details_Client(this.annoncesclient, this.myUser, {super.key});
+  late AppLanguageProvider appLanguage;
 
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -48,7 +54,8 @@ class My_Details_Client extends StatelessWidget {
                 child: Column(
                   children:[
                     SizedBox(height: 20,),
-                    Text("Information personnelle",
+                    Text(
+                    AppLocalizations.of(context)!.translate('Information personnelle')!,
                     style: TextStyle( 
                       fontSize: 25,
                       decoration: TextDecoration.underline,
@@ -81,7 +88,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           flex: 10,
                           child: Text(
-                          "Nom: ",
+                          AppLocalizations.of(context)!.translate('Nom')!,
                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                           ),
                         ),
@@ -100,7 +107,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           flex: 10,
                           child: Text(
-                            "Type: ",
+                            AppLocalizations.of(context)!.translate('Type')!,
                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                             ),
                         ),
@@ -118,7 +125,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           flex: 10,
                           child: Text(
-                            "E-mail: ",
+                            AppLocalizations.of(context)!.translate('E-mail')!,
                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                             ),
                         ),
@@ -136,7 +143,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           flex: 10,
                           child: Text(
-                            "Numéro de telephone: ",
+                          AppLocalizations.of(context)!.translate('Numéro de telephone')!,
                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                           ),
                         ),
@@ -166,7 +173,8 @@ class My_Details_Client extends StatelessWidget {
                 child: Column(
                   children:[
                     SizedBox(height: 20,),
-                    Text("Information sur l'annonce",
+                    Text(
+                    AppLocalizations.of(context)!.translate("Information sur l'annonce")!,
                     style: TextStyle( 
                       fontSize: 25,
                       decoration: TextDecoration.underline,
@@ -182,7 +190,7 @@ class My_Details_Client extends StatelessWidget {
                         Expanded(
                           // flex: 10,
                           child: Text(
-                          "Titre: ",
+                          AppLocalizations.of(context)!.translate('Titre')!,
                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                           ),
                         ),
@@ -200,14 +208,14 @@ class My_Details_Client extends StatelessWidget {
                         SizedBox(width: 20,height: 30),
                         Expanded(
                           child: Text(
-                            "Prix: ",
+                            AppLocalizations.of(context)!.translate("Prix")!,
                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                             ),
                         ),
                         Expanded(
                           // flex: 15,
                           child: Text(
-                            "${annoncesclient.prix} Dh",
+                            "${annoncesclient.prix} ${AppLocalizations.of(context)!.translate("Dh")!}",
                             style: TextStyle(fontSize: 17),
                           )),
                           ],
@@ -218,7 +226,7 @@ class My_Details_Client extends StatelessWidget {
                             Expanded(
                               // flex: 10,
                               child: Text(
-                                "Ville de départ: ",
+                                AppLocalizations.of(context)!.translate('Ville de départ')!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                                 ),
                             ),
@@ -235,7 +243,7 @@ class My_Details_Client extends StatelessWidget {
                             Expanded(
                               // flex: 10,
                               child: Text(
-                                "Ville d'arrivé: ",
+                                AppLocalizations.of(context)!.translate("Ville d'arrivée")!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                               ),
                             ),
@@ -253,7 +261,7 @@ class My_Details_Client extends StatelessWidget {
                             Expanded(
                               // flex: 10,
                               child: Text(
-                              "Date de départ: ",
+                              AppLocalizations.of(context)!.translate('Date de départ')!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                               ),
                             ),
@@ -272,7 +280,7 @@ class My_Details_Client extends StatelessWidget {
                             Expanded(
                               // flex: 10,
                               child: Text(
-                                "Date d'arrivé: ",
+                                AppLocalizations.of(context)!.translate("Date d'arrivée")!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                                 ),
                             ),
@@ -290,7 +298,7 @@ class My_Details_Client extends StatelessWidget {
                             Expanded(
                               // flex: 10,
                               child: Text(
-                                "Type des marchandises: ",
+                                AppLocalizations.of(context)!.translate("Types de marchandises")!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                                 ),
                             ),
@@ -307,13 +315,13 @@ class My_Details_Client extends StatelessWidget {
                             Expanded(
                               // flex: 10,
                               child: Text(
-                                "Tonnage: ",
+                                AppLocalizations.of(context)!.translate("Tonnage")!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                               ),
                             ),
                             Expanded(
                               // flex: 15,
-                              child: Text("${annoncesclient.tonnage} Kg",
+                              child: Text("${annoncesclient.tonnage} ${AppLocalizations.of(context)!.translate("Kg")!}",
                               style: TextStyle(fontSize: 17),
                               ),
                             ),
@@ -324,7 +332,7 @@ class My_Details_Client extends StatelessWidget {
                             SizedBox(width: 20,height: 30),
                             Expanded(
                               child: Text(
-                                "Details: ",
+                              AppLocalizations.of(context)!.translate("Details")!,
                               style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold ),
                               ),
                             ),

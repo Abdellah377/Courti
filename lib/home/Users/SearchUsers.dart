@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/get_users_bloc/get_users_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Users/UserProfile_Screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class SearchUser extends StatelessWidget {
-  const SearchUser({super.key});
+  SearchUser({super.key});
+
+  late AppLanguageProvider appLanguage;
 
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Users"),
+          title: Text(AppLocalizations.of(context)!.translate('Users')!),
         ),
         body: Column(
           children: [

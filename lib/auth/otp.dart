@@ -115,7 +115,7 @@ class _MyVerifyState extends State<Otp> {
                     height: 10,
                   ),
                   Text(
-                    "We need to register your phone without getting started!",
+                    "Nous devons enregistrer votre téléphone pour commencer!",
                     style: TextStyle(
                       fontSize: 16,
                     ),

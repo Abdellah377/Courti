@@ -16,7 +16,7 @@ class SearchUser_Screen extends StatelessWidget {
       create: (context) => GetUsersBloc(
         myUserRepository: context.read<AuthentificationBloc>().userRepository
         )..add(GetUsersByArg(arg, value)),
-      child: const SearchUser(),
+      child: SearchUser(),
     );
   }
 }

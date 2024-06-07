@@ -7,6 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/add_annonce_client_bloc/add_annonce_client_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class EditAnnonces_Client extends StatefulWidget {
   final AnnoncesClient annoncesClient;
@@ -34,7 +37,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
   bool depart = false;
 
   final _formKey = GlobalKey<FormState>();
-  
+
+  late AppLanguageProvider appLanguage;
+
 
   @override
   void initState() {
@@ -53,6 +58,8 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
 
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
+    
     return BlocListener<AddAnnonceClientBloc, AddAnnonceClientState>(
       listener: (context, state) {
         if (state is AddAnnonceSuccess) {
@@ -64,9 +71,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text(
-            "Modifier Votre Annonce Client",
-            style: TextStyle(
+          title: Text(
+            AppLocalizations.of(context)!.translate("Modifier Votre Annonce Client")!,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -92,15 +99,15 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.deepPurple.withOpacity(.2)),
                       child: TextFormField(
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: "Titre",
+                          labelText: AppLocalizations.of(context)!.translate('Titre')!,
                           
                         ),
                         controller: TitleController,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Title is required";
+                            return AppLocalizations.of(context)!.translate('Title is required')!;
                           }
                           return null;
                         },
@@ -118,14 +125,14 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                               color: Colors.deepPurple.withOpacity(.2),
                             ),
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
-                                labelText: "Ville départ",
+                                labelText: AppLocalizations.of(context)!.translate('Ville de départ')!,
                               ),
                               controller: Ville_DepartController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Ville is required";
+                                  return AppLocalizations.of(context)!.translate('Ville is required')!;
                                 }
                                 return null;
                               },
@@ -141,14 +148,14 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                                 borderRadius: BorderRadius.circular(15),
                                 color: Colors.deepPurple.withOpacity(.2)),
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
-                                labelText: "Ville d'arrivé",
+                                labelText: AppLocalizations.of(context)!.translate("Ville d'arrivée")!,
                               ),
                               controller: Ville_DarriveController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Ville is required";
+                                  return AppLocalizations.of(context)!.translate("Ville is required")!;
                                 }
                                 return null;
                               },
@@ -164,9 +171,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.deepPurple.withOpacity(.2)),
                       child: DateTimeField(
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: "Date départ",
+                          labelText: AppLocalizations.of(context)!.translate('Date de départ')!,
                         ),
                         format: format,
                         onShowPicker: (context, currentValue) async {
@@ -193,8 +200,6 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           if (value == null) {
                             value = annonce.Date_depart;
                             return null;
-                            // depart == false;
-                            // return "Date is required";
                           }
                           depart = true;
                           return null;
@@ -208,9 +213,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.deepPurple.withOpacity(.2)),
                       child: DateTimeField(
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: "Date d'arrivé",
+                          labelText: AppLocalizations.of(context)!.translate("Date d'arrivée")!,
                         ),
                         format: format,
                         onShowPicker: (context, currentValue) async {
@@ -242,7 +247,7 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                               DateTime.parse((Date_DepartController.text));
                           if (depart == true) {
                             if (value.isBefore(arrive)) {
-                              return "Date d'arrivé avant date de départ";
+                              return AppLocalizations.of(context)!.translate("Date d'arrivé avant date de départ!")!;
                             }
                           }
                           return null;
@@ -256,14 +261,14 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.deepPurple.withOpacity(.2)),
                         child: TextFormField(
-                         decoration: const InputDecoration(
+                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: "Type des marchandise",
+                          labelText: AppLocalizations.of(context)!.translate("Types de marchandises")!,
                         ),
                         controller: TypeMarchandiseController,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Marchandise is required";
+                            return AppLocalizations.of(context)!.translate("Marchandise is required")!;
                           }
                           return null;
                         },
@@ -281,9 +286,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                                 borderRadius: BorderRadius.circular(15),
                                 color: Colors.deepPurple.withOpacity(.2)),
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
-                                labelText: "Tonnage",
+                                labelText:  AppLocalizations.of(context)!.translate("Tonnage")!,
                               ),
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -292,7 +297,7 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                               controller: TonnageCntroller,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Tonnage is required";
+                                  return  AppLocalizations.of(context)!.translate("Tonnage is required")!;
                                 }
                                 return null;
                               },
@@ -313,9 +318,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                               color: Colors.deepPurple.withOpacity(.2),
                             ),
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
-                                labelText: "Prix",
+                                labelText: AppLocalizations.of(context)!.translate("Prix")!,
                               ),
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -324,7 +329,7 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                               controller: PrixController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Ville is required";
+                                  return AppLocalizations.of(context)!.translate("Prix is required")!;
                                 }
                                 return null;
                               },
@@ -345,9 +350,9 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           color: Colors.deepPurple.withOpacity(.2)),
                       child: TextFormField(
                         maxLines: 5,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: "Details",
+                          labelText: AppLocalizations.of(context)!.translate("Details")!,
                         ),
                         controller: DetailsController,
                       )),
@@ -396,16 +401,16 @@ class _EditAnnonceState extends State<EditAnnonces_Client> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.send_rounded,
                                 color: Colors.white,
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Text(
-                                "Envoier",
-                                style: TextStyle(
+                                 AppLocalizations.of(context)!.translate("Envoier")!,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
                                   color: Colors.white,

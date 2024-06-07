@@ -68,6 +68,8 @@ dependencies:
   provider: ^6.1.2
   shared_preferences: ^2.2.3
   flutter_localization: ^0.2.0
+  flutter_localizations:
+    sdk: flutter
 
 dependency_overrides:
   modal_bottom_sheet:

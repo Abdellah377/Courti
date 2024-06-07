@@ -5,7 +5,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/set_user_data_bloc/set_user_data_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/upload_picture_bloc/upload_picture_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Profile/EditProfileValues.dart';
+import 'package:provider/provider.dart';
 import 'package:user_repository/user_repository.dart';
 
 class EditProfile extends StatefulWidget {
@@ -25,8 +28,11 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
   }
 
+    late AppLanguageProvider appLanguage;
+
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return BlocListener<UploadPictureBloc, UploadPictureState>(
       listener: (context, state) {
         if (state is UploadPictureSuccess) {
@@ -40,7 +46,7 @@ class _EditProfileState extends State<EditProfile> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Edit Profile"),
+          title: Text(AppLocalizations.of(context)!.translate('Edit Profile')!),
         ),
         body: RefreshIndicator(
           onRefresh: () async {
@@ -224,9 +230,9 @@ class _EditProfileState extends State<EditProfile> {
                                             BorderRadius.circular(10)),
                                     color:
                                         const Color.fromARGB(255, 95, 95, 95),
-                                    child: const Text(
-                                      "Edit",
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.translate('Edit')!,
+                                      style: const TextStyle(
                                           fontSize: 17, color: Colors.white),
                                     ),
                                   )),
@@ -281,9 +287,9 @@ class _EditProfileState extends State<EditProfile> {
                                             BorderRadius.circular(10)),
                                     color:
                                         const Color.fromARGB(255, 95, 95, 95),
-                                    child: const Text(
-                                      "Edit",
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.translate('Edit')!,
+                                      style: const TextStyle(
                                           fontSize: 17, color: Colors.white),
                                     ),
                                   )),
@@ -338,9 +344,9 @@ class _EditProfileState extends State<EditProfile> {
                                             BorderRadius.circular(10)),
                                     color:
                                         const Color.fromARGB(255, 95, 95, 95),
-                                    child: const Text(
-                                      "Edit",
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.translate('Edit')!,
+                                      style: const TextStyle(
                                           fontSize: 17, color: Colors.white),
                                     ),
                                   )),
@@ -395,9 +401,9 @@ class _EditProfileState extends State<EditProfile> {
                                             BorderRadius.circular(10)),
                                     color:
                                         const Color.fromARGB(255, 95, 95, 95),
-                                    child: const Text(
-                                      "Edit",
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.translate('Edit')!,
+                                      style: const TextStyle(
                                           fontSize: 17, color: Colors.white),
                                     ),
                                   )),

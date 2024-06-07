@@ -11,9 +11,12 @@ import 'package:kourti_application_1/Blocs/AnnonceClientBlocs/get_annonce_client
 import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/get_user_by_id_bloc/get_user_by_id_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/upload_picture_bloc/upload_picture_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Profile/EditProfile.dart';
 import 'package:kourti_application_1/home/Profile/My_Details_Transporteur.dart';
 import 'package:kourti_application_1/home/Profile/My_Details_client.dart';
+import 'package:provider/provider.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MyProfile extends StatefulWidget {
@@ -25,15 +28,70 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  late AppLanguageProvider appLanguage;
+
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
+    
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         centerTitle: true,
-        title: const Text("Profile"),
+        title: Text(AppLocalizations.of(context)!.translate('Profile')!),
         actions: [
+          PopupMenuButton<int>(
+            color: Colors.white,
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 1,
+                child: Row(
+                  children: <Widget>[
+                    // Icon(Icons.abc,),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("English")
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 2,
+                child: Row(
+                  children: [
+                    // Icon(Icons.nearby_off),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Francais")
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 3,
+                child: Row(
+                  children: [
+                    // Icon(Icons.nearby_off),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Arabic")
+                  ],
+                ),
+              ),
+            ],
+            elevation: 2,
+            onSelected: (value) {
+              if (value == 1) {
+                appLanguage.changeLanguage(const Locale("en"));
+              } else if (value == 2) {
+                appLanguage.changeLanguage(const Locale("fr"));
+              }else if (value == 3) {
+                appLanguage.changeLanguage(const Locale("ar"));
+              }
+            },
+          ),
           IconButton(
               onPressed: () {
                 Navigator.push(
@@ -72,7 +130,7 @@ class _MyProfileState extends State<MyProfile> {
                         height: 20,
                       ),
                       Text(
-                        "Information personnelle",
+                        AppLocalizations.of(context)!.translate('Information personnelle')!,
                         style: TextStyle(
                             fontSize: 25,
                             decoration: TextDecoration.underline,
@@ -141,7 +199,7 @@ class _MyProfileState extends State<MyProfile> {
                           Expanded(
                             flex: 10,
                             child: Text(
-                              "Nom: ",
+                              AppLocalizations.of(context)!.translate('Nom')!,
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
@@ -161,7 +219,7 @@ class _MyProfileState extends State<MyProfile> {
                           Expanded(
                             flex: 10,
                             child: Text(
-                              "Type: ",
+                              AppLocalizations.of(context)!.translate('Type')!,
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
@@ -180,7 +238,7 @@ class _MyProfileState extends State<MyProfile> {
                           Expanded(
                             flex: 10,
                             child: Text(
-                              "E-mail: ",
+                              AppLocalizations.of(context)!.translate('E-mail')!,
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
@@ -199,7 +257,7 @@ class _MyProfileState extends State<MyProfile> {
                           Expanded(
                             flex: 10,
                             child: Text(
-                              "Numéro de telephone: ",
+                              AppLocalizations.of(context)!.translate('Numéro de telephone')!,
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
@@ -353,12 +411,12 @@ class _MyProfileState extends State<MyProfile> {
                                                               left: 5,
                                                               top: 10,
                                                               right: 5),
-                                                      child: const Row(
+                                                      child: Row(
                                                         children: [
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                              "Ville départ:",
+                                                              AppLocalizations.of(context)!.translate('Ville de départ')!,
                                                               style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
@@ -369,7 +427,7 @@ class _MyProfileState extends State<MyProfile> {
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                              "Ville d'arrivé:",
+                                                              AppLocalizations.of(context)!.translate("Ville d'arrivée")!,
                                                               style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
@@ -400,12 +458,12 @@ class _MyProfileState extends State<MyProfile> {
                                                               left: 5,
                                                               top: 10,
                                                               right: 5),
-                                                      child: const Row(
+                                                      child: Row(
                                                         children: [
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                              "Date depart:",
+                                                              AppLocalizations.of(context)!.translate('Date de départ')!,
                                                               style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
@@ -416,7 +474,7 @@ class _MyProfileState extends State<MyProfile> {
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                              "Date d'arrivé:",
+                                                              AppLocalizations.of(context)!.translate("Date d'arrivée")!,
                                                               style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
@@ -449,12 +507,12 @@ class _MyProfileState extends State<MyProfile> {
                                                               left: 5,
                                                               top: 10,
                                                               right: 5),
-                                                      child: const Row(
+                                                      child: Row(
                                                         children: [
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                                    "Marcendise:",
+                                                                    AppLocalizations.of(context)!.translate("Marchandise")!,
                                                                     style:
                                                                         TextStyle(
                                                                       decoration:
@@ -465,7 +523,7 @@ class _MyProfileState extends State<MyProfile> {
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                              "Tonnage:",
+                                                              AppLocalizations.of(context)!.translate("Tonnage")!,
                                                               style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
@@ -476,7 +534,7 @@ class _MyProfileState extends State<MyProfile> {
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                              "Prix:",
+                                                              AppLocalizations.of(context)!.translate("Prix")!,
                                                               style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
@@ -500,12 +558,12 @@ class _MyProfileState extends State<MyProfile> {
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                                  "${annonce.tonnage}")),
+                                                                  "${annonce.tonnage} ${AppLocalizations.of(context)!.translate("Kg")!}")),
                                                         ),
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                                  "${annonce.prix}")),
+                                                                  "${annonce.prix} ${AppLocalizations.of(context)!.translate("Dh")!}")),
                                                         ),
                                                       ],
                                                     )
@@ -672,12 +730,12 @@ class _MyProfileState extends State<MyProfile> {
                                                             left: 5,
                                                             top: 10,
                                                             right: 5),
-                                                    child: const Row(
+                                                    child: Row(
                                                       children: [
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "Ville départ:",
+                                                            AppLocalizations.of(context)!.translate("Ville de départ")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -688,7 +746,7 @@ class _MyProfileState extends State<MyProfile> {
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "Ville d'arrivé:",
+                                                            AppLocalizations.of(context)!.translate("Ville d'arrivée")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -719,12 +777,12 @@ class _MyProfileState extends State<MyProfile> {
                                                             left: 5,
                                                             top: 10,
                                                             right: 5),
-                                                    child: const Row(
+                                                    child: Row(
                                                       children: [
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "Date depart:",
+                                                            AppLocalizations.of(context)!.translate("Date de départ")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -735,7 +793,7 @@ class _MyProfileState extends State<MyProfile> {
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "Date d'arrivé:",
+                                                            AppLocalizations.of(context)!.translate("Date d'arrivée")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -768,12 +826,12 @@ class _MyProfileState extends State<MyProfile> {
                                                             left: 5,
                                                             top: 10,
                                                             right: 5),
-                                                    child: const Row(
+                                                    child: Row(
                                                       children: [
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "N Vehicule:",
+                                                            AppLocalizations.of(context)!.translate("N Vehicule")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -784,7 +842,7 @@ class _MyProfileState extends State<MyProfile> {
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "charge:",
+                                                            AppLocalizations.of(context)!.translate("Charge")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -795,7 +853,7 @@ class _MyProfileState extends State<MyProfile> {
                                                         Expanded(
                                                           child: Center(
                                                               child: Text(
-                                                            "Prix:",
+                                                            AppLocalizations.of(context)!.translate("Prix")!,
                                                             style: TextStyle(
                                                               decoration:
                                                                   TextDecoration
@@ -816,12 +874,12 @@ class _MyProfileState extends State<MyProfile> {
                                                       Expanded(
                                                         child: Center(
                                                             child: Text(
-                                                                "${annonce.charge} Kg")),
+                                                                "${annonce.charge} ${AppLocalizations.of(context)!.translate("Kg")!}")),
                                                       ),
                                                       Expanded(
                                                         child: Center(
                                                             child: Text(
-                                                                "${annonce.prix} Dh")),
+                                                                "${annonce.prix} ${AppLocalizations.of(context)!.translate("Dh")!}")),
                                                       ),
                                                     ],
                                                   )

@@ -14,6 +14,8 @@ import 'package:kourti_application_1/Blocs/AnnonceTransporteurBlocs/get_annonce_
     as GetAnnonceTransporteur;
 import 'package:kourti_application_1/Blocs/UserBlocs/get_users_bloc/get_users_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Annonces/Add_annonce_Client.dart';
 import 'package:kourti_application_1/home/Annonces/Add_annonce_transporteur.dart';
 import 'package:kourti_application_1/home/Annonces/Details_Transporteur.dart';
@@ -23,6 +25,7 @@ import 'package:kourti_application_1/home/Profile/MyProfile_Screen.dart';
 import 'package:kourti_application_1/home/Annonces/SearchAnnonces_Screen.dart';
 import 'package:kourti_application_1/home/Users/UserProfile_Screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
 class Annonce extends StatefulWidget {
   const Annonce({super.key});
@@ -62,6 +65,8 @@ class _AnnonceState extends State<Annonce> {
     'NbreVehicule',
   ];
 
+  late AppLanguageProvider appLanguage;
+
   @override
   void initState() {
     setState(() {});
@@ -70,6 +75,7 @@ class _AnnonceState extends State<Annonce> {
 
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -77,7 +83,7 @@ class _AnnonceState extends State<Annonce> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Home page"),
+          title: Text(AppLocalizations.of(context)!.translate('Courti')!),
           leading: BlocBuilder<MyUserBloc, MyUserState>(
             builder: (context, state) {
               return IconButton(
@@ -93,15 +99,15 @@ class _AnnonceState extends State<Annonce> {
               );
             },
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
               Tab(
                 icon: Icon(Icons.person),
-                text: "Annonce Client",
+                text: AppLocalizations.of(context)!.translate("Annonce Client")!,
               ),
               Tab(
                 icon: Icon(Icons.person),
-                text: "Annonce Transporteur",
+                text: AppLocalizations.of(context)!.translate('Annonce Transporteur')!,
               ),
             ],
           ),
@@ -235,14 +241,14 @@ class _AnnonceState extends State<Annonce> {
                                           ),
                                           child: TextFormField(
                                             style: const TextStyle(height: 1.5),
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText: "Search Annonce",
+                                              hintText: AppLocalizations.of(context)!.translate('Search Annonce')!,
                                             ),
                                             controller: valueControllerClient,
                                             validator: (value) {
                                               if (value!.isEmpty) {
-                                                return "value is required";
+                                                return AppLocalizations.of(context)!.translate('value is required')!;
                                               }
                                               return null;
                                             },
@@ -416,13 +422,13 @@ class _AnnonceState extends State<Annonce> {
                                                                     left: 5,
                                                                     top: 10,
                                                                     right: 5),
-                                                            child: const Row(
+                                                            child: Row(
                                                               children: [
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                    "Ville départ:",
-                                                                    style: TextStyle(
+                                                                    AppLocalizations.of(context)!.translate('Ville de départ')!,
+                                                                    style: const TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -432,8 +438,8 @@ class _AnnonceState extends State<Annonce> {
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                    "Ville d'arrivé:",
-                                                                    style: TextStyle(
+                                                                    AppLocalizations.of(context)!.translate("Ville d'arrivée")!,
+                                                                    style: const TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -463,13 +469,13 @@ class _AnnonceState extends State<Annonce> {
                                                                     left: 5,
                                                                     top: 10,
                                                                     right: 5),
-                                                            child: const Row(
+                                                            child: Row(
                                                               children: [
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                    "Date depart:",
-                                                                    style: TextStyle(
+                                                                    AppLocalizations.of(context)!.translate('Date de départ')!,
+                                                                    style: const TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -479,8 +485,8 @@ class _AnnonceState extends State<Annonce> {
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                    "Date d'arrivé:",
-                                                                    style: TextStyle(
+                                                                    AppLocalizations.of(context)!.translate("Date d'arrivée")!,
+                                                                    style: const TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -512,14 +518,14 @@ class _AnnonceState extends State<Annonce> {
                                                                     left: 5,
                                                                     top: 10,
                                                                     right: 5),
-                                                            child: const Row(
+                                                            child: Row(
                                                               children: [
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                          "Marcendise:",
+                                                                          AppLocalizations.of(context)!.translate("Marchandise")!,
                                                                           style:
-                                                                              TextStyle(
+                                                                              const TextStyle(
                                                                             decoration:
                                                                                 TextDecoration
                                                                                     .underline,
@@ -528,8 +534,8 @@ class _AnnonceState extends State<Annonce> {
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                    "Tonnage:",
-                                                                    style: TextStyle(
+                                                                    AppLocalizations.of(context)!.translate("Tonnage")!,
+                                                                    style: const TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -539,8 +545,8 @@ class _AnnonceState extends State<Annonce> {
                                                                 Expanded(
                                                                   child: Center(
                                                                       child: Text(
-                                                                    "Prix:",
-                                                                    style: TextStyle(
+                                                                    AppLocalizations.of(context)!.translate("Prix")!,
+                                                                    style: const TextStyle(
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -563,12 +569,12 @@ class _AnnonceState extends State<Annonce> {
                                                               Expanded(
                                                                 child: Center(
                                                                     child: Text(
-                                                                        "${annonce.tonnage}")),
+                                                                        "${annonce.tonnage} ${AppLocalizations.of(context)!.translate("Kg")!}")),
                                                               ),
                                                               Expanded(
                                                                 child: Center(
                                                                     child: Text(
-                                                                        "${annonce.prix}")),
+                                                                        "${annonce.prix} ${AppLocalizations.of(context)!.translate("Dh")!}")),
                                                               ),
                                                             ],
                                                           )
@@ -706,14 +712,14 @@ class _AnnonceState extends State<Annonce> {
                                         ),
                                         child: TextFormField(
                                           style: const TextStyle(height: 1.5),
-                                          decoration: const InputDecoration(
+                                          decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: "Search Annonce",
+                                            hintText: AppLocalizations.of(context)!.translate('Search Annonce')!,
                                           ),
                                           controller: valueControllerTransp,
                                           validator: (value) {
                                             if (value!.isEmpty) {
-                                              return "value is required";
+                                              return AppLocalizations.of(context)!.translate('value is required')!;
                                             }
                                             return null;
                                           },
@@ -864,13 +870,13 @@ class _AnnonceState extends State<Annonce> {
                                                       Container(
                                                         margin: const EdgeInsets.only(
                                                             left: 5, top: 10, right: 5),
-                                                        child: const Row(
+                                                        child: Row(
                                                           children: [
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "Ville départ:",
-                                                                style: TextStyle(
+                                                                AppLocalizations.of(context)!.translate("Ville de départ")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -880,8 +886,8 @@ class _AnnonceState extends State<Annonce> {
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "Ville d'arrivé:",
-                                                                style: TextStyle(
+                                                                AppLocalizations.of(context)!.translate("Ville d'arrivée")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -906,13 +912,13 @@ class _AnnonceState extends State<Annonce> {
                                                       Container(
                                                         margin: const EdgeInsets.only(
                                                             left: 5, top: 10, right: 5),
-                                                        child: const Row(
+                                                        child: Row(
                                                           children: [
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "Date depart:",
-                                                                style: TextStyle(
+                                                                AppLocalizations.of(context)!.translate("Date de départ")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -922,8 +928,8 @@ class _AnnonceState extends State<Annonce> {
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "Date d'arrivé:",
-                                                                style: TextStyle(
+                                                                AppLocalizations.of(context)!.translate("Date d'arrivée")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -950,13 +956,13 @@ class _AnnonceState extends State<Annonce> {
                                                       Container(
                                                         margin: const EdgeInsets.only(
                                                             left: 5, top: 10, right: 5),
-                                                        child: const Row(
+                                                        child: Row(
                                                           children: [
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "N Vehicule:",
-                                                                style: TextStyle(
+                                                                AppLocalizations.of(context)!.translate("N Vehicule")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -966,8 +972,8 @@ class _AnnonceState extends State<Annonce> {
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "charge:",
-                                                                style: TextStyle(
+                                                                AppLocalizations.of(context)!.translate("Charge")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -977,8 +983,8 @@ class _AnnonceState extends State<Annonce> {
                                                             Expanded(
                                                               child: Center(
                                                                   child: Text(
-                                                                "Prix:",
-                                                                style: TextStyle(
+                                                                 AppLocalizations.of(context)!.translate("Prix")!,
+                                                                style: const TextStyle(
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -998,12 +1004,12 @@ class _AnnonceState extends State<Annonce> {
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                                    "${annonce.charge} Kg")),
+                                                                    "${annonce.charge} ${AppLocalizations.of(context)!.translate("Kg")!}")),
                                                           ),
                                                           Expanded(
                                                             child: Center(
                                                                 child: Text(
-                                                                    "${annonce.prix} Dh")),
+                                                                    "${annonce.prix} ${AppLocalizations.of(context)!.translate("Dh")!}")),
                                                           ),
                                                         ],
                                                       )

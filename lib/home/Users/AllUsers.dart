@@ -6,10 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/get_users_bloc/get_users_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/my_user_bloc/my_user_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Profile/MyProfile_Screen.dart';
 import 'package:kourti_application_1/home/Users/UserProfile_Screen.dart';
 import 'package:kourti_application_1/home/Users/SearchUsers_Screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
 class AllUsers extends StatefulWidget {
   const AllUsers({super.key});
@@ -25,13 +28,17 @@ class _AllUsersState extends State<AllUsers> {
 
   List<String> listOfValue = ['Nom', 'Type', 'Telephone', 'E_mail'];
 
+  late AppLanguageProvider appLanguage;
+
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         centerTitle: true,
-        title: const Text("Users"),
+        title: Text(AppLocalizations.of(context)!.translate('Users')!),
+
         leading: BlocBuilder<MyUserBloc, MyUserState>(
           builder: (context, state) {
             return IconButton(
@@ -122,14 +129,14 @@ class _AllUsersState extends State<AllUsers> {
                     ),
                     child: TextFormField(
                       style: const TextStyle(height: 1.5),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Search User",
+                        hintText: AppLocalizations.of(context)!.translate('Search Use')!,
                       ),
                       controller: valueController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "value is required";
+                          return AppLocalizations.of(context)!.translate('value is required')!;
                         }
                         return null;
                       },
