@@ -2,14 +2,21 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/auth/Signup_screen.dart';
 import 'package:kourti_application_1/auth/login_scren.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Welcome_page extends StatelessWidget {
-  const Welcome_page({super.key});
+  Welcome_page({super.key});
+
+  late AppLanguageProvider appLanguage;
 
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -28,7 +35,7 @@ class Welcome_page extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    "Bienvenu Chez Courti!",
+                    AppLocalizations.of(context)!.translate("Bienvenu Chez Courti!")!,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -39,7 +46,8 @@ class Welcome_page extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Text("Livraison Rapide! N'importe Quoi, N'importe Quand Et N'importe Où.... ",
+                  Text(
+                    AppLocalizations.of(context)!.translate("Livraison Rapide! N'importe Quoi, N'importe Quand Et N'importe Où.... ")!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.grey[700],
@@ -74,7 +82,7 @@ class Welcome_page extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: Text(
-                      "Login",
+                      AppLocalizations.of(context)!.translate("Login")!,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18
@@ -96,7 +104,7 @@ class Welcome_page extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: Text(
-                      "Sign up",
+                      AppLocalizations.of(context)!.translate("Sign up")!,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,

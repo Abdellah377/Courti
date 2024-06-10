@@ -3,8 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/log_in_bloc/log_in_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/auth/Signup_screen.dart';
 import 'package:kourti_application_1/home/app_view.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -33,8 +36,11 @@ class _LoginScreenState extends State<Login> {
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
 
+   late AppLanguageProvider appLanguage;
+
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return BlocListener<LogInBloc, LogInState>(
       listener: (context, state) {
         if (state is LogInSuccess) {
@@ -52,8 +58,8 @@ class _LoginScreenState extends State<Login> {
           setState(() {
             success = false;
             LoginRequired = false;
-            _errorMsg1 = "Invalid email ou password";
-            _errorMsg2 = "Invalid num ou password";
+            _errorMsg1 = AppLocalizations.of(context)!.translate("Invalid email ou password")!;
+            _errorMsg2 = AppLocalizations.of(context)!.translate("Invalid num ou password")!;
           });
         }
       },
@@ -66,7 +72,7 @@ class _LoginScreenState extends State<Login> {
             centerTitle: true,
             elevation: 0.0,
             title: Text(
-              "Se connecter",
+              AppLocalizations.of(context)!.translate("Se connecter")!,
               style: TextStyle(
                 color: Colors.blue,
               ),
@@ -82,14 +88,14 @@ class _LoginScreenState extends State<Login> {
               ),
             ),
             bottom: TabBar(
-              tabs: const [
+              tabs: [
                 Tab(
                   icon: Icon(Icons.email),
-                  text: "E-mail",
+                  text: AppLocalizations.of(context)!.translate("E-mail")!,
                 ),
                 Tab(
                   icon: Icon(Icons.phone),
-                  text: "Num Tel",
+                  text: AppLocalizations.of(context)!.translate("Numéro de telephone")!,
                 ),
               ],
             ),
@@ -109,7 +115,7 @@ class _LoginScreenState extends State<Login> {
                         Column(
                           children: <Widget>[
                             Text(
-                              "Bienvenue chez courti!",
+                              AppLocalizations.of(context)!.translate("Bienvenu Chez Courti!")!,
                               style: TextStyle(
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
@@ -117,7 +123,7 @@ class _LoginScreenState extends State<Login> {
                               height: 10,
                             ),
                             Text(
-                              "Connectez-vous à votre compte",
+                              AppLocalizations.of(context)!.translate("Connectez-vous à votre compte")!,
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.grey[700],
@@ -151,12 +157,12 @@ class _LoginScreenState extends State<Login> {
                                           }
                                           return null;
                                         },
-                                        decoration: const InputDecoration(
+                                        decoration: InputDecoration(
                                           // icon: Icon(Icons.phone),
                                           icon: Icon(Icons.email),
                                           border: InputBorder.none,
                                           // hintText: "N° Telephone",
-                                          hintText: "E-mail",
+                                          hintText: AppLocalizations.of(context)!.translate("E-mail")!,
                                         ),
                                       ),
                                     ),
@@ -183,7 +189,7 @@ class _LoginScreenState extends State<Login> {
                                             icon:
                                                 const Icon(Icons.vpn_key_sharp),
                                             border: InputBorder.none,
-                                            hintText: "mot de passe",
+                                            hintText: AppLocalizations.of(context)!.translate("mot de passe")!,
                                             suffixIcon: IconButton(
                                                 onPressed: () {
                                                   //In here we will create a click to show and hide the password a toggle button
@@ -200,7 +206,7 @@ class _LoginScreenState extends State<Login> {
 
                                     !success
                                         ? Text(
-                                            "Incorrect E-mail or password",
+                                            AppLocalizations.of(context)!.translate("Incorrect E-mail or password")!,
                                             style: TextStyle(color: Colors.red),
                                           )
                                         : Text(""),
@@ -249,7 +255,7 @@ class _LoginScreenState extends State<Login> {
                                       borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: Text(
-                                      "Entrer",
+                                      AppLocalizations.of(context)!.translate("Entrer")!,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18,
@@ -263,7 +269,7 @@ class _LoginScreenState extends State<Login> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("Vous n'avez pas de compte?"),
+                            Text(AppLocalizations.of(context)!.translate("Vous n'avez pas de compte?")!,),
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
@@ -272,8 +278,8 @@ class _LoginScreenState extends State<Login> {
                                         builder: (context) =>
                                             const Signup_screen()));
                               },
-                              child: const Text(
-                                "S'inscrire",
+                              child: Text(
+                                AppLocalizations.of(context)!.translate("S'inscrire")!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
@@ -310,7 +316,7 @@ class _LoginScreenState extends State<Login> {
                         Column(
                           children: <Widget>[
                             Text(
-                              "Bienvenue chez courti!",
+                              AppLocalizations.of(context)!.translate("Bienvenu Chez Courti!")!,
                               style: TextStyle(
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
@@ -318,7 +324,7 @@ class _LoginScreenState extends State<Login> {
                               height: 10,
                             ),
                             Text(
-                              "Connectez-vous à votre compte",
+                              AppLocalizations.of(context)!.translate("Connectez-vous à votre compte")!,
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.grey[700],
@@ -352,12 +358,12 @@ class _LoginScreenState extends State<Login> {
                                           }
                                           return null;
                                         },
-                                        decoration: const InputDecoration(
+                                        decoration: InputDecoration(
                                           // icon: Icon(Icons.phone),
                                           icon: Icon(Icons.phone),
                                           border: InputBorder.none,
                                           // hintText: "N° Telephone",
-                                          hintText: "Num Tel",
+                                          hintText: AppLocalizations.of(context)!.translate("Numéro de telephone")!,
                                         ),
                                       ),
                                     ),
@@ -384,7 +390,7 @@ class _LoginScreenState extends State<Login> {
                                             icon:
                                                 const Icon(Icons.vpn_key_sharp),
                                             border: InputBorder.none,
-                                            hintText: "mot de passe",
+                                            hintText: AppLocalizations.of(context)!.translate("mot de passe")!,
                                             suffixIcon: IconButton(
                                                 onPressed: () {
                                                   //In here we will create a click to show and hide the password a toggle button
@@ -446,7 +452,7 @@ class _LoginScreenState extends State<Login> {
                                       borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: Text(
-                                      "Entrer",
+                                      AppLocalizations.of(context)!.translate("Entrer")!,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18,
@@ -460,7 +466,7 @@ class _LoginScreenState extends State<Login> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("Vous n'avez pas de compte?"),
+                            Text(AppLocalizations.of(context)!.translate("Vous n'avez pas de compte?")!,),
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
@@ -469,8 +475,8 @@ class _LoginScreenState extends State<Login> {
                                         builder: (context) =>
                                             const Signup_screen()));
                               },
-                              child: const Text(
-                                "S'inscrire",
+                              child: Text(
+                                AppLocalizations.of(context)!.translate("S'inscrire")!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,

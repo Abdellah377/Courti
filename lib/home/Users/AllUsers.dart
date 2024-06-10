@@ -131,7 +131,7 @@ class _AllUsersState extends State<AllUsers> {
                       style: const TextStyle(height: 1.5),
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: AppLocalizations.of(context)!.translate('Search Use')!,
+                        hintText: AppLocalizations.of(context)!.translate('Search User')!,
                       ),
                       controller: valueController,
                       validator: (value) {

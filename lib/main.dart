@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
               "/Annonce" : (context) => Annonce(),
             },
             locale: model.appLocal,
-            supportedLocales: const [Locale('en', 'US'), Locale('fr','FR'), Locale('ar','MA')],
+            supportedLocales: const [Locale('en', 'US'), Locale('fr','CA'), Locale('ar','MA')],
             localizationsDelegates: const[
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

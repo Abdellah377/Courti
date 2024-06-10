@@ -67,6 +67,14 @@
     "password is wrong" : "Password is incorrect",
     "confirmer mot de passe" : "confirm your password",
     "Tonnage is required" : "Tonnage is required",
-    "Charge is required" : "Load is required"
-
+    "Charge is required" : "Load is required",
+    "Livraison Rapide! N'importe Quoi, N'importe Quand Et N'importe Où.... " : "Fast Delivery! Anything, Anytime, Anywhere....",
+    "New Password" : "New Password",
+    "Old Password" : "Old Password",
+    "Edit Password" : "Edit Password",
+    "New number" : "New number",
+    "Edit Phone" : "Edit Phone",
+    "New Email" : "New Email",
+    "Edit E-mail" : "Edit E-mail",
+    "Edit Nom" : "Edit Name"
 }

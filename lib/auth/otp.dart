@@ -5,8 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/set_user_data_bloc/set_user_data_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/sign_up_bloc/sign_up_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/auth/welcome_page.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import 'package:user_repository/user_repository.dart';
 
 class Otp extends StatefulWidget {
@@ -31,6 +34,8 @@ class _MyVerifyState extends State<Otp> {
     super.initState();
   }
 
+  late AppLanguageProvider appLanguage;
+  
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -56,7 +61,7 @@ class _MyVerifyState extends State<Otp> {
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
-
+    appLanguage = Provider.of<AppLanguageProvider>(context);
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
@@ -108,14 +113,14 @@ class _MyVerifyState extends State<Otp> {
                     height: 25,
                   ),
                   Text(
-                    "Phone Verification",
+                    AppLocalizations.of(context)!.translate('Phone Verification')!,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Nous devons enregistrer votre téléphone pour commencer!",
+                    AppLocalizations.of(context)!.translate('Nous devons enregistrer votre téléphone pour commencer!')!,
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -139,7 +144,7 @@ class _MyVerifyState extends State<Otp> {
                     separatorBuilder: (index) => const SizedBox(width: 8),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "required input";
+                        return AppLocalizations.of(context)!.translate("required input")!;
                       }
                       return null;
                     },
@@ -174,7 +179,7 @@ class _MyVerifyState extends State<Otp> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: Text(
-                        "telephone verification",
+                        AppLocalizations.of(context)!.translate('Phone Verification')!,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -189,7 +194,7 @@ class _MyVerifyState extends State<Otp> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "Edit Phone Number ?",
+                            AppLocalizations.of(context)!.translate('Edit Phone Number ?')!,
                             style: TextStyle(color: Colors.black),
                           ))
                     ],

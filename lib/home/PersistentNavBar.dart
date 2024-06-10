@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/home/Users/AllUsers.dart';
 import 'package:kourti_application_1/home/Annonces/Annonce.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -14,6 +15,7 @@ class PersistentNavBarScreen extends StatefulWidget {
 class _PersistentNavBarScreenState extends State<PersistentNavBarScreen> {
   late PersistentTabController _controller;
   late int _selectedIndex;
+
   @override
   void initState() {
     _selectedIndex = 0;
@@ -32,13 +34,13 @@ class _PersistentNavBarScreenState extends State<PersistentNavBarScreen> {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
-        title: ("Home"),
+        title: ("Courti"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.rectangle_stack_person_crop),
-        title: ("Users"),
+        title: AppLocalizations.of(context)!.translate('Users')!,
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

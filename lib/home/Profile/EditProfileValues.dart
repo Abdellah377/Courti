@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/set_user_data_bloc/set_user_data_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/sign_up_bloc/sign_up_bloc.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/auth/otp.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -42,7 +43,7 @@ class _EditNomState extends State<EditNom> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Edit Nom"),
+          title: Text(AppLocalizations.of(context)!.translate('Edit Nom')!)
         ),
         body: SingleChildScrollView(
           child: Column(children: [
@@ -71,14 +72,14 @@ class _EditNomState extends State<EditNom> {
                                   borderRadius: BorderRadius.circular(15),
                                   color: Colors.deepPurple.withOpacity(.2)),
                               child: TextFormField(
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  labelText: "Nom",
+                                  labelText: AppLocalizations.of(context)!.translate('Nom')!,
                                 ),
                                 controller: nomController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "Nom is required";
+                                    return AppLocalizations.of(context)!.translate("Name is required")!;
                                   }
                                   return null;
                                 },
@@ -102,7 +103,7 @@ class _EditNomState extends State<EditNom> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             color: Colors.lightBlue,
-                            child: const Text("Valider"),
+                            child: Text(AppLocalizations.of(context)!.translate("Entrer")!),
                           ),
                         ],
                       )),
@@ -148,7 +149,7 @@ class _EditEmailState extends State<EditEmail> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Edit E-mail"),
+          title: Text(AppLocalizations.of(context)!.translate('Edit E-mail')!,),
         ),
         body: SingleChildScrollView(
           child: Column(children: [
@@ -175,14 +176,14 @@ class _EditEmailState extends State<EditEmail> {
                                   borderRadius: BorderRadius.circular(15),
                                   color: Colors.deepPurple.withOpacity(.2)),
                               child: TextFormField(
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  labelText: "New Email",
+                                  labelText: AppLocalizations.of(context)!.translate('New Email')!,
                                 ),
                                 controller: emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "email is required";
+                                    return AppLocalizations.of(context)!.translate('Email is required')!;
                                   }
                                   return null;
                                 },
@@ -207,14 +208,14 @@ class _EditEmailState extends State<EditEmail> {
                                           ? Icons.visibility
                                           : Icons.visibility_off)),
                                   border: InputBorder.none,
-                                  labelText: "Password",
+                                  labelText: AppLocalizations.of(context)!.translate('mot de passe')!,
                                 ),
                                 controller: passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "password is required";
+                                    return AppLocalizations.of(context)!.translate('password is required')!;
                                   } else if (value != User.Password) {
-                                    return "password is wrong";
+                                    return AppLocalizations.of(context)!.translate('password is wrong')!;
                                   }
                                   return null;
                                 },
@@ -236,7 +237,7 @@ class _EditEmailState extends State<EditEmail> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             color: Colors.lightBlue,
-                            child: const Text("Valider"),
+                            child: Text(AppLocalizations.of(context)!.translate('Entrer')!,)
                           ),
                         ],
                       )),
@@ -282,7 +283,7 @@ class _EditPhoneState extends State<EditPhone> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Edit Phone"),
+          title: Text(AppLocalizations.of(context)!.translate('Edit Phone')!,),
         ),
         body: SingleChildScrollView(
           child: Column(children: [
@@ -311,10 +312,10 @@ class _EditPhoneState extends State<EditPhone> {
                                   borderRadius: BorderRadius.circular(15),
                                   color: Colors.deepPurple.withOpacity(.2)),
                               child: TextFormField(
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   prefix: Text("+212"),
                                   border: InputBorder.none,
-                                  labelText: "New number",
+                                  labelText: AppLocalizations.of(context)!.translate('New number')!,
                                 ),
                                 keyboardType: TextInputType.number,
                                 inputFormatters: <TextInputFormatter>[
@@ -323,7 +324,7 @@ class _EditPhoneState extends State<EditPhone> {
                                 controller: PhoneController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "phone is required";
+                                    return AppLocalizations.of(context)!.translate('Numero telephone is requireds')!;
                                   }
                                   return null;
                                 },
@@ -348,14 +349,14 @@ class _EditPhoneState extends State<EditPhone> {
                                           ? Icons.visibility
                                           : Icons.visibility_off)),
                                   border: InputBorder.none,
-                                  labelText: "Password",
+                                  labelText: AppLocalizations.of(context)!.translate('mot de passe')!,
                                 ),
                                 controller: passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "password is required";
+                                    return AppLocalizations.of(context)!.translate('password is required')!;
                                   } else if (value != User.Password) {
-                                    return "password is wrong";
+                                    return AppLocalizations.of(context)!.translate('password is wrong')!;
                                   }
                                   return null;
                                 },
@@ -397,7 +398,7 @@ class _EditPhoneState extends State<EditPhone> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             color: Colors.lightBlue,
-                            child: const Text("Valider"),
+                            child: Text(AppLocalizations.of(context)!.translate('Entrer')!)
                           ),
                         ],
                       )),
@@ -446,7 +447,7 @@ class _EditPasswordState extends State<EditPassword> {
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           centerTitle: true,
-          title: const Text("Edit Password"),
+          title: Text(AppLocalizations.of(context)!.translate('Edit Password')!),
         ),
         body: Column(children: [
           Padding(
@@ -486,14 +487,14 @@ class _EditPasswordState extends State<EditPassword> {
                                         ? Icons.visibility
                                         : Icons.visibility_off)),
                                 border: InputBorder.none,
-                                labelText: "Old Password",
+                                labelText: AppLocalizations.of(context)!.translate('Old Password')!,
                               ),
                               controller: oldPassController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Password is required";
+                                  return AppLocalizations.of(context)!.translate('password is required')!;
                                 } else if (value != User.Password) {
-                                  return "Password wrong";
+                                  return AppLocalizations.of(context)!.translate('password is wrong')!;
                                 }
                                 return null;
                               },
@@ -518,12 +519,12 @@ class _EditPasswordState extends State<EditPassword> {
                                         ? Icons.visibility
                                         : Icons.visibility_off)),
                                 border: InputBorder.none,
-                                labelText: "New Password",
+                                labelText: AppLocalizations.of(context)!.translate('New Password')!
                               ),
                               controller: newPassController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Password is required";
+                                  return AppLocalizations.of(context)!.translate('password is required')!;
                                 }
                                 return null;
                               },
@@ -548,14 +549,14 @@ class _EditPasswordState extends State<EditPassword> {
                                         ? Icons.visibility
                                         : Icons.visibility_off)),
                                 border: InputBorder.none,
-                                labelText: "Confirmer Password",
+                                labelText: AppLocalizations.of(context)!.translate('confirmer mot de passe')!,
                               ),
                               controller: newPassController2,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Password is required";
+                                  return AppLocalizations.of(context)!.translate('password is required')!;
                                 } else if (value != newPassController.text) {
-                                  return "Password wrong";
+                                  return AppLocalizations.of(context)!.translate('password is wrong')!;
                                 }
                                 return null;
                               },
@@ -575,7 +576,7 @@ class _EditPasswordState extends State<EditPassword> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           color: Colors.lightBlue,
-                          child: const Text("Valider"),
+                          child: Text(AppLocalizations.of(context)!.translate('Entrer')!,),
                         ),
                       ],
                     )),

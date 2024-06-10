@@ -6,7 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/authentification_bloc/authentification_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/set_user_data_bloc/set_user_data_bloc.dart';
 import 'package:kourti_application_1/Blocs/UserBlocs/sign_up_bloc/sign_up_bloc.dart';
+import 'package:kourti_application_1/app_language_provider.dart';
+import 'package:kourti_application_1/app_localizations.dart';
 import 'package:kourti_application_1/auth/otp.dart';
+import 'package:provider/provider.dart';
 import 'package:user_repository/user_repository.dart';
 
 class Signup extends StatefulWidget {
@@ -37,8 +40,12 @@ class _SignupState extends State<Signup> {
   //We have to create global key for our form
   final _formKey = GlobalKey<FormState>();
 
+  late AppLanguageProvider appLanguage;
+
   @override
   Widget build(BuildContext context) {
+    appLanguage = Provider.of<AppLanguageProvider>(context);
+    
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
@@ -60,7 +67,7 @@ class _SignupState extends State<Signup> {
           elevation: 0.0,
           centerTitle: true,
           title: Text(
-            "S'inscrire",
+            AppLocalizations.of(context)!.translate("S'inscrire")!,
             style: TextStyle(
               color: Colors.blue,
             ),
@@ -88,7 +95,7 @@ class _SignupState extends State<Signup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "créez votre compte, c'est gratuit :",
+                    AppLocalizations.of(context)!.translate("créez votre compte, c'est gratuit")!,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -111,14 +118,14 @@ class _SignupState extends State<Signup> {
                       controller: usernameController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Name is required";
+                          return AppLocalizations.of(context)!.translate("Name is required")!;
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         icon: Icon(Icons.account_circle_rounded),
                         border: InputBorder.none,
-                        hintText: "Nom et Prenom",
+                        hintText: AppLocalizations.of(context)!.translate("Nom")!,
                       ),
                     ),
                   ),
@@ -137,15 +144,15 @@ class _SignupState extends State<Signup> {
                       ],
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Numero telephone is required";
+                          return AppLocalizations.of(context)!.translate('Numero telephone is requireds')!;
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         icon: Icon(Icons.phone),
                         border: InputBorder.none,
                         prefix: Text("+212 "),
-                        hintText: "N° Telephone",
+                        hintText: AppLocalizations.of(context)!.translate('Numéro de telephone')!,
                       ),
                     ),
                   ),
@@ -160,14 +167,14 @@ class _SignupState extends State<Signup> {
                       controller: emailController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Email is required";
+                          return AppLocalizations.of(context)!.translate('Email is required')!;
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         icon: Icon(Icons.email),
                         border: InputBorder.none,
-                        hintText: "Email",
+                        hintText: AppLocalizations.of(context)!.translate('E-mail')!,
                       ),
                     ),
                   ),
@@ -181,7 +188,7 @@ class _SignupState extends State<Signup> {
                     child: DropdownButtonFormField(
                       value: TypeController,
                       hint: Text(
-                        'choose one',
+                        AppLocalizations.of(context)!.translate('choose one')!,
                       ),
                       isExpanded: true,
                       onChanged: (value) {
@@ -220,7 +227,7 @@ class _SignupState extends State<Signup> {
                       controller: passwordController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "password is required";
+                          return AppLocalizations.of(context)!.translate('password is required')!;
                         }
                         return null;
                       },
@@ -228,7 +235,7 @@ class _SignupState extends State<Signup> {
                       decoration: InputDecoration(
                           icon: const Icon(Icons.lock),
                           border: InputBorder.none,
-                          hintText: "mot de passe",
+                          hintText: AppLocalizations.of(context)!.translate('mot de passe')!,
                           suffixIcon: IconButton(
                               onPressed: () {
                                 //In here we will create a click to show and hide the password a toggle button
@@ -253,9 +260,9 @@ class _SignupState extends State<Signup> {
                       controller: password2Controller,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "password is required";
+                          return AppLocalizations.of(context)!.translate('password is required')!;
                         } else if (value != passwordController.text) {
-                          return "password is wrong";
+                          return AppLocalizations.of(context)!.translate('password is wrong')!;
                         }
                         return null;
                       },
@@ -263,7 +270,7 @@ class _SignupState extends State<Signup> {
                       decoration: InputDecoration(
                           icon: const Icon(Icons.lock),
                           border: InputBorder.none,
-                          hintText: "confirmer mot de passe",
+                          hintText: AppLocalizations.of(context)!.translate('confirmer mot de passe')!,
                           suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -343,7 +350,7 @@ class _SignupState extends State<Signup> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               child: Text(
-                                "Entrer",
+                                AppLocalizations.of(context)!.translate('Entrer')!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,

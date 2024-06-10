@@ -66,5 +66,15 @@
     "password is wrong" : "كلمة المرور غير صحيحة",
     "confirmer mot de passe" : "تأكيد كلمة المرور",
     "Tonnage is required" : "الحمولة مطلوبة",
-    "charge is required" : "الحمولة مطلوبة"
+    "charge is required" : "الحمولة مطلوبة",
+    "Livraison Rapide! N'importe Quoi, N'importe Quand Et N'importe Où.... " : "توصيل سريع! أي شيء، في أي وقت، وأي مكان....",
+    "New Password" : "كلمة مرور جديدة",
+    "Old Password" : "كلمة المرور القديمة",
+    "Edit Password" : "تعديل كلمة المرور",
+    "New number" : "رقم جديد",
+    "Edit Phone" : "تعديل الهاتف",
+    "New Email" : "بريد إلكتروني جديد",
+    "Edit E-mail" : "تعديل البريد الإلكتروني",
+    "Edit Nom" : "تعديل الاسم"
+
 }

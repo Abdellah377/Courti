@@ -21,8 +21,8 @@
     "Dh": "Dh",
     "Kg": "Kg",
     "Details": "Details",
-    "Edit Profile": "Edit Profile",
-    "Edit": "Edit",
+    "Edit Profile": "Modifier votre profile",
+    "Edit": "Modifier",
     "Modifier Votre Annonce Client" : "Modifier Votre Annonce Client",
     "Title is required" : "Le Titre est requis",
     "Ville is required" : "La Ville est requis",
@@ -66,6 +66,15 @@
     "password is wrong" : "Mot de passe est faux",
     "confirmer mot de passe" : "confirmer votre mot de passe",
     "Tonnage is required" : "Tonnage est requis",
-    "Charge is required" : "Charge est requis"
+    "Charge is required" : "Charge est requis",
+    "Livraison Rapide! N'importe Quoi, N'importe Quand Et N'importe Où.... ": "Livraison Rapide! N'importe Quoi, N'importe Quand Et N'importe Où.... ",
+    "New Password" : "Nouveau mot de passe",
+    "Old Password" : "Ancien mot de passe",
+    "Edit Password" : "Modifier le mot de passe",
+    "New number" : "Nouveau numéro",
+    "Edit Phone" : "Modifier le téléphone",
+    "New Email" : "Nouveau Email",
+    "Edit E-mail" : "Modifier le courriel",
+    "Edit Nom" : "Modifier le nom"
 
 }

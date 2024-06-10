@@ -201,7 +201,7 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 10,
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   User.Nom,
                                   style: const TextStyle(fontSize: 17),
@@ -237,7 +237,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   )),
                               const SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                             ],
                           ),
@@ -258,7 +258,7 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 10,
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   User.E_mail,
                                   style: const TextStyle(fontSize: 17),
@@ -294,7 +294,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   )),
                               const SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                             ],
                           ),
@@ -315,7 +315,7 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 10,
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   User.Telephone,
                                   style: const TextStyle(fontSize: 17),
@@ -351,7 +351,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   )),
                               const SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                             ],
                           ),
@@ -372,7 +372,7 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 10,
                               ),
                               const Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   "Password",
                                   style: TextStyle(fontSize: 17),
@@ -408,7 +408,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   )),
                               const SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                             ],
                           ),
